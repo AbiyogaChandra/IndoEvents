@@ -17,3 +17,7 @@ Route::get('/login', function () {
 Route::get('/my-events', function () {
     return view('my_events');
 });
+
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+});
