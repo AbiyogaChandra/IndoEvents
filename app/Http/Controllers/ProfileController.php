@@ -14,13 +14,15 @@ class ProfileController extends Controller
     public function index()
     {
         //get data from table profiles
-        $profile = Profile::latest()->get();
+        /*$profile = Profile::latest()->get();
         //make response JSON
         return response()->json([
             'success' => true,
             'message' => 'Profile List',
             'data' => $profile
-        ], 200);
+        ], 200);*/
+        $profiles = Profile::all(); // Retrieve all profiles
+        return view('profiles', compact('profiles'));
     }
 
     /**
@@ -28,24 +30,23 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+
         //set validation
         $validator = Validator::make($request->all(), [
             'display_name' => 'required',
-            'profile_photo' => 'nullable'
+            'profile_photo' => 'nullable|image|mimes:jpeg,jpg,png|max:5120'
         ]);
         //response error validation
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        $encodedImage = null;
-        if ($request->profile_photo) {
-            $imageData = file_get_contents($request->profile_photo->getPathname());
-            $encodedImage = base64_encode($imageData);
-        }
+        $file = $request->file('profile_photo');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = $file->storeAs('uploads', $fileName, 'public');
         //save to database
         $profile = Profile::create([
             'display_name' => $request->display_name,
-            'profile_photo' => $encodedImage
+            'profile_photo' => $filePath
         ]);
         //success save to database
         if($profile) {
