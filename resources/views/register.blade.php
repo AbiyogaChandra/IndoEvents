@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 <body>
-	<div style="width: 50%; margin-top: 96px">
+	<div class="Montserrat" style="width: 50%; margin-top: 96px">
 		<h1>Buat Akun</h1>
 		<br>
 		<br>
 		<br>
-		<input type="email" placeholder="Alamat E-Mail" style="width: 75%; height: 32px; padding: 10px;">
+		<input type="email" placeholder="Alamat E-Mail" style="width: 75%; height: 32px; padding: 10px;" required>
 		<div id="lanjutan" style="display: none">
 			<br>
-			<input type="text" placeholder="Nama Akun" style="width: 75%; height: 32px; padding: 10px;">
+			<input type="text" placeholder="Nama Akun" style="width: 75%; height: 32px; padding: 10px;" required>
 			<br>
 			<br>
-			<input type="text" placeholder="Nama Panggilan" style="width: 75%; height: 32px; padding: 10px;">
+			<input type="text" placeholder="Nama Panggilan" style="width: 75%; height: 32px; padding: 10px;" required>
 			<br>
 			<br>
-			<input type="password" placeholder="Sandi" style="width: 75%; height: 32px; padding: 10px;">
+			<input type="password" placeholder="Sandi" style="width: 75%; height: 32px; padding: 10px;" required>
 		</div>
 		<br>
 		<br>
@@ -45,7 +45,11 @@
 	<img src="{{ asset('assets/covers/Register.jpg') }}" style="width: 50%; height: 100%; object-fit: cover; position: absolute; top: 0px; right: 0px;">
 	<script>
 		function lanjut() {
-			document.getElementById('lanjutan').style.display = "block";
+			if (document.getElementById('lanjutan').style.display == "block") {
+				window.location.href = "http://indoevents.test/";
+			} else {
+				document.getElementById('lanjutan').style.display = "block";
+			}
 		}
 	</script>
 </body>

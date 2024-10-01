@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 <body>
-<div id="navbar" class="bg-color-gray">
+	<div id="navbar" class="bg-color-gray">
 		<img src="{{ asset('assets/Logo.png') }}" height="64px">
 		<div style="margin-left: 5px;">
 			<span class="bold color-red font-size-24">Indo</span><span class="bold color-white font-size-24">Events</span>

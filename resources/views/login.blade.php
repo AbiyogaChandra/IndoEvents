@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 <body>
-	<div style="width: 50%; margin-top: 96px">
+	<div class="Montserrat" style="width: 50%; margin-top: 96px">
 		<h1>Masuk</h1>
 		<br>
 		<br>
@@ -19,7 +19,7 @@
 		<br>
 		<br>
 		<div>
-			<input class="bg-color-red bold color-white no-border" type="submit" value="Lanjut" style="width: 75%; height: 40px; font-size: 24px">
+			<input class="bg-color-red bold color-white no-border" type="submit" value="Lanjut" style="width: 75%; height: 40px; font-size: 24px" onclick="window.location.href='http://indoevents.test/'">
 			<br>
 			<br>
 			<br>

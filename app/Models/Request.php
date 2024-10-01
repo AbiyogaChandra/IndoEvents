@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Report extends Model
+class Request extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 
         'type',
-        'object_id',
-        'content'
+        'event_id',
+        'title', 
+        'description',
+        'event_time',
+        'location',
+        'ticket_price',
+        'profile_id'
     ];
 }
