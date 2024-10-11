@@ -8,28 +8,28 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/auth/google/redirect', [UserController::class, 'redirectToGoogle']);
+Route::get('/about', function () {
+    return view('about');
+});
 
-Route::get('/auth/google/callback', [UserController::class, 'handleGoogleCallback']);
-
-Route::get('/profiles', [ProfileController::class, 'index']);
-
-Route::get('/register', function () {
-    return view('register');
+Route::get('/book', function () {
+    return view('book');
 });
 
 Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/event', function () {
-    return view('event');
+Route::get('/register', function () {
+    return view('register');
 });
 
-Route::get('/my-events', function () {
-    return view('my_events');
+Route::get('/menu', function () {
+    return view('menu');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-});
+Route::get('/auth/google/redirect', [UserController::class, 'redirectToGoogle']);
+
+Route::get('/auth/google/callback', [UserController::class, 'handleGoogleCallback']);
+
+Route::get('/profiles', [ProfileController::class, 'index']);
