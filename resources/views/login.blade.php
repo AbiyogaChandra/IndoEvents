@@ -38,21 +38,30 @@
             <div class="card shadow">
               <div class="card-body mx-auto">
                 <h4 class="card-title mt-3 text-center" style="font-family: 'Montserrat'">Masuk</h4>
-                <form action="index.html">
+                @if ($errors->any())
+                  <div style="color: red;">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                @endif
+                <form action="api/login">
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                      <span class="input-group-text"> <i class="fa fa-envelope fa-fw"></i> </span>
                     </div>
-                    <input name="" class="form-control" placeholder="Alamat E-Mail" type="email">
+                    <input name="email" class="form-control" placeholder="Alamat E-Mail" type="email">
                   </div>
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                      <span class="input-group-text"> <i class="fa fa-lock fa-fw"></i> </span>
                     </div>
-                    <input class="form-control" placeholder="Kata sandi" type="password">
+                    <input name="password" class="form-control" placeholder="Kata sandi" type="password">
                   </div>
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block" style="background-color: #FF6060;">Masuk</button>
+                    <input type="submit" class="btn btn-primary btn-block" style="background-color: #FF6060;" value="Masuk">
                   </div>
                 </form>
                 <p class="text-muted font-weight-bold ">

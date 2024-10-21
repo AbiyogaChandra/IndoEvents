@@ -59,37 +59,62 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+        $messages = [
+            'email.unique' => 'Sudah ada akun yang menggunakan alamat e-mail itu.',
+            'password.min' => 'Kata sandi harus terdiri dari minimal 8 karakter.',
+            'password.confirmed' => 'Pengulangan kata sandi tidak sama.',
+            'username.unique' => 'Sudah ada akun yang menggunakan nama akun itu.',
+        ];
+
         $request->validate([
-            'username' => 'required|string|max:20',
-            'email' => 'required|string|email|max:320',
-            'password' => 'required|string|min:8|max:255',
-        ]);
+            'email' => 'required|string|email|max:320|unique:users',
+            'password' => 'required|string|min:8|max:255|confirmed',
+            'username' => 'required|string|max:20|unique:users'
+        ], $messages);
+        
+        try {
+            $profile = Profile::create(
+                [
+                    'display_name' => Str::limit($request->username, 50)
+                ]
+            );
 
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'username' => $request->username,
+                'profile_id' => $profile->id,
+            ]);
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect()->intended('/');
+            return redirect('/home')->with('success', 'Pembuatan akun berhasil!');
+            
+        } catch (Exception $e) {
+            return redirect('/register')->with('error', 'Pembuatan akun gagal!');
+        }
     }
 
     public function login(Request $request)
     {
+        $messages = [
+            'email.exists' => 'Tidak ada akun yang menggunakan alamat e-mail itu.',
+            'password.required' => 'Kata sandi wajib diisi.',
+        ];
+
+        // Validate the input
         $request->validate([
-            'email' => 'required|string|email|max:320',
-            'password' => 'required|string|max:255',
-        ]);
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:8',
+        ], $messages);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->intended('/home');
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return redirect('/home')->with('success', 'Berhasil masuk.');
+        } else {
+            return redirect('/login')->with('error', 'Alamat e-mail atau kata sandi salah.');
         }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
     }
 
     public function redirectToGoogle()
@@ -103,8 +128,10 @@ class UserController extends Controller
 
         if (User::where('google_id', $googleUser->id)->exists()) {
             $user = User::where('google_id', $googleUser->id)->first();
+            Auth::login($user);
         } elseif (User::where('email', $googleUser->email)->exists()) {
             $user = User::where('email', $googleUser->email)->first();
+            Auth::login($user);
         } else {
             $baseName = Str::limit($googleUser->name, 16, '');
             $baseName = preg_replace('/\s+/', '', $baseName);
@@ -131,19 +158,19 @@ class UserController extends Controller
                     'email' => $googleUser->email,
                     'password' => $randomPassword,
                     'username' => $randomUsername,
-                    'level' => "user",
                     'profile_id' => $profile->id,
                     'google_id' => $googleUser->id
                 ]
             );
+            Auth::login($user);
         }
-        //Auth::login($user);
+        return redirect('/home');
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/home');
     }
 
     /**

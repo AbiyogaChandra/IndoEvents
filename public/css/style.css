@@ -205,7 +205,7 @@ a:focus {
 }
 
 .custom_nav-container .navbar-nav {
-  padding-left: 18%;
+  padding-left: 10%;
 }
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
@@ -282,8 +282,8 @@ a:focus {
 .user_option .order_online {
   display: inline-block;
   padding: 8px 30px;
-  background-color: #ff6060;
   color: #ffffff;
+  background-color: #ff6060;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -395,19 +395,22 @@ a:focus {
 }
 
 .slider_section .detail-box a {
-  display: inline-block;
-  padding: 10px 45px;
   background-color: #ff6060;
   color: #ffffff;
-  border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  border: none;
-  margin-top: 10px;
 }
 
 .slider_section .detail-box a:hover {
   background-color: #dd6060;
+}
+
+.slider_section .detail-box .browse-btn {
+  display: inline-block;
+  padding: 10px 45px;
+  border-radius: 45px;
+  border: none;
+  margin-top: 10px;
 }
 
 .slider_section .img-box img {
@@ -1049,6 +1052,8 @@ a:focus {
 
 .google-login-button {
   border: 1px solid gray;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .google-login-button:hover {
