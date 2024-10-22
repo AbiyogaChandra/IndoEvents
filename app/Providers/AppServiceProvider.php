@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Filament\Panel;
+use Filament\Enums\ThemeMode;
 
 class AppServiceProvider extends ServiceProvider
 {
