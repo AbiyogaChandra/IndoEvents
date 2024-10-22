@@ -17,12 +17,11 @@
 
     <title>IndoEvents</title>
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
     <!-- nice select  -->
     <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}"/>
-    <!-- font awesome style -->
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <!-- responsive style -->
@@ -134,7 +133,7 @@
           <div class="row">
             <div class="col ml-auto">
               <div class="row align-items-center">
-                <h2 style="font-family: 'Montserrat';">Acara-acara</h2>
+                <h2 style="font-family: 'Montserrat';">Acara</h2>
                 <span class="ml-auto">Urutkan dari:</span>
                 <select class="ml-3">
                   <option value="follower">Pendaftar Terbanyak</option>
@@ -327,52 +326,7 @@
     <!-- end food section -->
 
     <!-- footer section -->
-    <footer class="footer_section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 footer-col">
-            <div class="footer_contact">
-              <h4>Hubungi Kami</h4>
-              <div class="contact_link_box">
-                <a href="">
-                  <i class="fa fa-map-marker" aria-hidden="true"></i>
-                  <span>Lokasi</span>
-                </a>
-                <a href="">
-                  <i class="fa fa-phone" aria-hidden="true"></i>
-                  <span>+62 812-5245-6853</span>
-                </a>
-                <a href="">
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
-                  <span>abiyogachandra@gmail.com</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 footer-col">
-            <div class="footer_detail">
-              <a href="" class="footer-logo">IndoEvents</a>
-              <div class="footer_social">
-                <a href="">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="">
-                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footer-info">
-          <p>
-            &copy; <span id="displayYear"></span> Hak cipta dilindungi undang-undang
-          </p>
-        </div>
-      </div>
-    </footer>
+    <x-footer />
     <!-- footer section -->
 
     <!-- jQery -->
