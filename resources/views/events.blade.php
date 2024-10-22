@@ -131,11 +131,11 @@
       <div class="container">
         <div class="filters-content">
           <div class="row">
-            <div class="col ml-auto">
-              <div class="row align-items-center">
+            <div class="col ms-auto">
+              <div class="d-flex align-items-center">
                 <h2 style="font-family: 'Montserrat';">Acara-Acara</h2>
-                <span class="ml-auto">Urutkan dari:</span>
-                <select class="ml-3">
+                <span class="ms-auto">Urutkan dari:</span>
+                <select class="ms-3">
                   <option value="follower">Pendaftar Terbanyak</option>
                   <option value="score">Skor Tertinggi</option>
                   <option value="recent">Terbaru</option>

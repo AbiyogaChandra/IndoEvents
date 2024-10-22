@@ -14,7 +14,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-1">
+                <ul class="navbar-nav ms-1">
                     <li class="nav-item {{ $currentRoute === 'home' ? 'active' : '' }}">
                         <a class="nav-link" href="home">Beranda</a>
                     </li>
@@ -25,7 +25,7 @@
                         <a class="nav-link" href="about">Buat Acara</a>
                     </li>
                 </ul>
-                <div class="user_option ml-auto">
+                <div class="user_option ms-auto">
                     @auth
                         <a href="api/logout" class="order_online">Keluar</a>
                     @else
