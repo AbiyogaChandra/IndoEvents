@@ -17,12 +17,11 @@
 
     <title>IndoEvents</title>
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
     <!-- nice select  -->
     <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}"/>
-    <!-- font awesome style -->
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <!-- responsive style -->
@@ -81,7 +80,7 @@
                 </p>
                 <p>
                   <a href="auth/google/redirect" class="btn btn-block google-login-button">
-                    <i class="fa fa-google mr-2"></i>Gunakan Akun Google
+                    <i class="fa-brands fa-google mr-2"></i>Gunakan Akun Google
                   </a>
                 </p>
                 <p class="text-center">Sudah punya akun?

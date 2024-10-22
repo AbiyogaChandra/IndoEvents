@@ -133,7 +133,7 @@
           <div class="row">
             <div class="col ml-auto">
               <div class="row align-items-center">
-                <h2 style="font-family: 'Montserrat';">Acara</h2>
+                <h2 style="font-family: 'Montserrat';">Acara-Acara</h2>
                 <span class="ml-auto">Urutkan dari:</span>
                 <select class="ml-3">
                   <option value="follower">Pendaftar Terbanyak</option>

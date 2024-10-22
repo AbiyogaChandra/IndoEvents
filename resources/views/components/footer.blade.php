@@ -32,7 +32,8 @@
         </div>
         <div class="footer-info">
             <p>
-                &copy; <span id="displayYear"></span> Hak cipta dilindungi undang-undang
+                &copy; <span id="displayYear"></span><br>
+                Hak cipta dilindungi undang-undang
             </p>
         </div>
     </div>
