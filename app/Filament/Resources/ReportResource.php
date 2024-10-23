@@ -17,7 +17,9 @@ class ReportResource extends Resource
 {
     protected static ?string $model = Report::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-flag';
+
+    protected static ?int $navigationSort = 7;
 
     public static function form(Form $form): Form
     {
@@ -31,7 +33,11 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('type')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('content'),
+                Tables\Columns\TextColumn::make('oject_id'),
             ])
             ->filters([
                 //
@@ -60,5 +66,10 @@ class ReportResource extends Resource
             'create' => Pages\CreateReport::route('/create'),
             'edit' => Pages\EditReport::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }

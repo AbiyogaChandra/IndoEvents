@@ -17,13 +17,20 @@ class ProfileResource extends Resource
 {
     protected static ?string $model = Profile::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('display_name')
+                    ->required()
+                    ->maxLength(20),
+                Forms\Components\FileUpload::make('profile_photo')
+                    ->directory('uploads')
+                    ->required(),
             ]);
     }
 
@@ -31,7 +38,11 @@ class ProfileResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('display_name')
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('profile_photo')
+                    ->circular(),
             ])
             ->filters([
                 //

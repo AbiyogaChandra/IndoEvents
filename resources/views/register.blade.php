@@ -19,13 +19,23 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap4.css') }}" />
     <!-- nice select  -->
     <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}"/>
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <!-- responsive style -->
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
+
+    <style>
+      a {
+        color: #ff6060;
+      }
+
+      a:hover {
+        color: #dd6060;
+      }
+    </style>
 
   </head>
 
@@ -98,7 +108,7 @@
     <!-- popper js -->
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <!-- bootstrap js -->
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/bootstrap4.js') }}"></script>
     <!-- isotope js -->
     <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
     <!-- nice select -->

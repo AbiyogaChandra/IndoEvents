@@ -16,12 +16,14 @@ Route::get('/home', function () {
     ]);
 })->name('home');
 
-Route::get('/about', function () {
-    return view('about');
-});
+Route::get('/events', function () {
+    return view('events', [
+        'currentRoute' => Route::currentRouteName(),
+    ]);
+})->name('events');
 
-Route::get('/book', function () {
-    return view('book');
+Route::get('/event', function () {
+    return view('event');
 });
 
 Route::get('/login', function () {
@@ -31,56 +33,6 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('register');
 })->middleware('guest');
-
-Route::get('/events', function () {
-    return view('events', [
-        'currentRoute' => Route::currentRouteName(),
-    ]);
-})->name('events');
-
-Route::get('/dashboard', function () {
-    return view('admin.index');
-});
-
-Route::get('/charts', function () {
-    return view('admin.charts_chartjs');
-});
-
-Route::get('/tables', function () {
-    return view('admin.tables');
-});
-
-Route::get('/tables_data', function () {
-    return view('admin.tables_data');
-});
-
-Route::get('/form_elements', function () {
-    return view('admin.form_elements');
-});
-
-Route::get('/form_advanced', function () {
-    return view('admin.form_advanced');
-});
-
-Route::get('/icons', function () {
-    return view('admin.icons');
-});
-
-Route::get('/buttons', function () {
-    return view('admin.buttons');
-});
-
-Route::get('/notifications', function () {
-    return view('admin.notifications');
-});
-
-Route::get('/progress', function () {
-    return view('admin.progress');
-});
-
-Route::get('/tabs', function () {
-    return view('admin.tabs');
-});
 
 Route::get('/api/register', [UserController::class, 'register'])->middleware('guest');
 

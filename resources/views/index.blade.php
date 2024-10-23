@@ -95,7 +95,7 @@
                       <i class="fa fa-user" aria-hidden="true"></i>
                       <h6 style="margin-left: 5px;">10rb pendaftar</h6>
                     </div>
-                    <a href="" style="color: white;">
+                    <a href="event" style="color: white;">
                       Lihat
                     </a>
                   </div>

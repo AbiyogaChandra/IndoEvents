@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RequestResource\Pages;
-use App\Filament\Resources\RequestResource\RelationManagers;
-use App\Models\Request;
+use App\Filament\Resources\CommentResource\Pages;
+use App\Filament\Resources\CommentResource\RelationManagers;
+use App\Models\Comment;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class RequestResource extends Resource
+class CommentResource extends Resource
 {
-    protected static ?string $model = Request::class;
+    protected static ?string $model = Comment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -34,10 +34,11 @@ class RequestResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('event_id')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('ticket_price'),
+                Tables\Columns\TextColumn::make('content')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('profile_id'),
             ])
             ->filters([
                 //
@@ -62,14 +63,9 @@ class RequestResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRequests::route('/'),
-            'create' => Pages\CreateRequest::route('/create'),
-            'edit' => Pages\EditRequest::route('/{record}/edit'),
+            'index' => Pages\ListComments::route('/'),
+            'create' => Pages\CreateComment::route('/create'),
+            'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
-    }
-
-    public static function canCreate(): bool
-    {
-        return false;
     }
 }

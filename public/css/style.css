@@ -140,6 +140,7 @@ a:focus {
 
 .header_section {
   padding: 15px 0;
+  background-color: #222831;
 }
 
 .header_section .container-fluid {
@@ -1015,6 +1016,7 @@ a:focus {
 /*# sourceMappingURL=style.css.map */
 
 .google-login-button {
+  color: black;
   border: 1px solid gray;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
