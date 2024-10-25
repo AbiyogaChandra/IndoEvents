@@ -6,6 +6,14 @@ body {
   overflow-x: hidden;
 }
 
+.montserrat {
+  font-family: 'Montserrat';
+}
+
+.roboto {
+  font-family: 'Roboto';
+}
+
 .layout_padding {
   padding: 90px 0;
 }
@@ -1016,7 +1024,7 @@ a:focus {
 /*# sourceMappingURL=style.css.map */
 
 .google-login-button {
-  color: black;
+  color: var(--bs-gray-dark);
   border: 1px solid gray;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;

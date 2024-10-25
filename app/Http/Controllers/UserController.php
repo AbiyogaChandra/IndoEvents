@@ -105,7 +105,7 @@ class UserController extends Controller
         // Validate the input
         $request->validate([
             'email' => 'required|string|email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
         ], $messages);
 
         $credentials = $request->only('email', 'password');
@@ -113,7 +113,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect('/home')->with('success', 'Berhasil masuk.');
         } else {
-            return redirect('/login')->with('error', 'Alamat e-mail atau kata sandi salah.');
+            return redirect('/login')->withErrors(['incorrect' => 'Alamat e-mail atau kata sandi salah.']);;
         }
     }
 

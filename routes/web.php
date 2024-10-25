@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 
+Route::redirect('/admin/login', '/login');
+
 Route::get('/', function () {
     return view('index', [
         'currentRoute' => Route::currentRouteName(),

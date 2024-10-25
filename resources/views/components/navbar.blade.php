@@ -33,9 +33,16 @@
                             <a class="nav-link" href="events">Telusuri Acara</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about">Buat Acara</a>
+                            <a class="nav-link" href="">Buat Acara</a>
                         </li>
                     @endif
+                    @auth
+                        @if(auth()->user()->level == 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin">Panel Admin</a>
+                            </li>
+                        @endif
+                    @endauth
                 </ul>
                 <div class="user_option ms-auto">
                     @auth

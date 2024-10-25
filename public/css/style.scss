@@ -902,3 +902,15 @@ a:focus {
 }
 
 // end footer section
+
+.google-login-button {
+  color: var(--bs-gray-dark);
+  border: 1px solid gray;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.google-login-button:hover {
+  color: #ff6060;
+  border: 1px solid #ff6060;
+}
