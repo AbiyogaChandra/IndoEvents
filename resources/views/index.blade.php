@@ -15,13 +15,9 @@
 
   <title>IndoEvents</title>
 
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
+  @vite(['resources/scss/app.scss', 'resources/js/app.js'])
   <!-- nice select  -->
   <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}" />
-  <!-- Custom styles for this template -->
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
 
@@ -40,16 +36,15 @@
       <div class="container">
         <div class="row">
           <div class="col-md-7 col-lg-8">
-            <div class="detail-box"
-              style="background-color: rgba(0, 0, 0, 0); backdrop-filter: blur(10px); padding: 20px; border-radius: 25%;">
-              <h1 style="font-family: 'Playfair Display'; font-style: italic;">Acara Terbaik di Indonesia</h1>
-              <p style="font-family: 'Montserrat'; font-size: 20px;">
+            <div class="detail-box">
+              <h1>Acara Terbaik di Indonesia</h1>
+              <p>
                 Temukan acara terbaik di Indonesia! IndoEvents menghubungkan
                 Anda dengan konser, festival, olahraga, dan acara budaya di
                 seluruh Indonesia. Beli dan jual tiket dengan mudah di
                 platform yang terpercaya!
               </p>
-              <div class="btn-box">
+              <div class="btn-box mt-5">
                 <a href="" class="btn1 browse-btn">Telusuri Acara</a>
               </div>
             </div>
@@ -69,7 +64,7 @@
   <section class="food_section layout_padding-bottom">
     <div class="container">
       <div class="heading_container heading_center">
-        <h1 style="font-family: 'Montserrat'">Acara terbaik minggu ini</h1>
+        <h1 class="section_title">Acara terbaik minggu ini</h1>
       </div>
       <div class="filters-content">
         <div class="row grid">
@@ -77,7 +72,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" style="object-fit: cover;" />
+                  <img src="images/hero.jpg" alt="Cover" />
                 </div>
                 <div class="detail-box">
                   <h5>JUDUL JUDUL JUDUL JUDUL</h5>
@@ -91,13 +86,15 @@
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <div class="options">
-                    <div style="display: flex; align-items: center;">
+                    <div class="d-flex align-items-center">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 style="margin-left: 5px;">10rb pendaftar</h6>
+                      <h6 class="ms-1">10rb pendaftar</h6>
                     </div>
-                    <a href="event" style="color: white;">
-                      Lihat
-                    </a>
+                    <div class="btn-box">
+                      <a href="event" class="view-btn">
+                        Lihat
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -107,7 +104,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" style="object-fit: cover;" />
+                  <img src="images/hero.jpg" alt="Cover" />
                 </div>
                 <div class="detail-box">
                   <h5>JUDUL JUDUL JUDUL JUDUL</h5>
@@ -121,13 +118,15 @@
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <div class="options">
-                    <div style="display: flex; align-items: center;">
+                    <div class="d-flex align-items-center">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 style="margin-left: 5px;">10rb pendaftar</h6>
+                      <h6 class="ms-1">10rb pendaftar</h6>
                     </div>
-                    <a href="" style="color: white;">
-                      Lihat
-                    </a>
+                    <div class="btn-box">
+                      <a href="event" class="view-btn">
+                        Lihat
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -137,7 +136,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" style="object-fit: cover;" />
+                  <img src="images/hero.jpg" alt="Cover" />
                 </div>
                 <div class="detail-box">
                   <h5>JUDUL JUDUL JUDUL JUDUL</h5>
@@ -151,13 +150,15 @@
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <div class="options">
-                    <div style="display: flex; align-items: center;">
+                    <div class="d-flex align-items-center">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 style="margin-left: 5px;">10rb pendaftar</h6>
+                      <h6 class="ms-1">10rb pendaftar</h6>
                     </div>
-                    <a href="" style="color: white;">
-                      Lihat
-                    </a>
+                    <div class="btn-box">
+                      <a href="event" class="view-btn">
+                        Lihat
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -167,7 +168,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" style="object-fit: cover;" />
+                  <img src="images/hero.jpg" alt="Cover" />
                 </div>
                 <div class="detail-box">
                   <h5>JUDUL JUDUL JUDUL JUDUL</h5>
@@ -181,13 +182,15 @@
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <div class="options">
-                    <div style="display: flex; align-items: center;">
+                    <div class="d-flex align-items-center">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 style="margin-left: 5px;">10rb pendaftar</h6>
+                      <h6 class="ms-1">10rb pendaftar</h6>
                     </div>
-                    <a href="" style="color: white;">
-                      Lihat
-                    </a>
+                    <div class="btn-box">
+                      <a href="event" class="view-btn">
+                        Lihat
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -197,7 +200,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" style="object-fit: cover;" />
+                  <img src="images/hero.jpg" alt="Cover" />
                 </div>
                 <div class="detail-box">
                   <h5>JUDUL JUDUL JUDUL JUDUL</h5>
@@ -211,13 +214,15 @@
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <div class="options">
-                    <div style="display: flex; align-items: center;">
+                    <div class="d-flex align-items-center">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 style="margin-left: 5px;">10rb pendaftar</h6>
+                      <h6 class="ms-1">10rb pendaftar</h6>
                     </div>
-                    <a href="" style="color: white;">
-                      Lihat
-                    </a>
+                    <div class="btn-box">
+                      <a href="event" class="view-btn">
+                        Lihat
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -227,7 +232,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" style="object-fit: cover;" />
+                  <img src="images/hero.jpg" alt="Cover" />
                 </div>
                 <div class="detail-box">
                   <h5>JUDUL JUDUL JUDUL JUDUL</h5>
@@ -241,13 +246,15 @@
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <div class="options">
-                    <div style="display: flex; align-items: center;">
+                    <div class="d-flex align-items-center">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 style="margin-left: 5px;">10rb pendaftar</h6>
+                      <h6 class="ms-1">10rb pendaftar</h6>
                     </div>
-                    <a href="" style="color: white;">
-                      Lihat
-                    </a>
+                    <div class="btn-box">
+                      <a href="event" class="view-btn">
+                        Lihat
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -255,7 +262,7 @@
           </div>
         </div>
       </div>
-      <div class="btn-box">
+      <div class="btn-box mt-5">
         <a href="events">Telusuri Lebih Lanjut</a>
       </div>
     </div>
@@ -271,8 +278,6 @@
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
   <!-- popper js -->
   <script src="{{ asset('js/popper.min.js') }}"></script>
-  <!-- bootstrap js -->
-  <script src="{{ asset('js/bootstrap.js') }}"></script>
   <!-- isotope js -->
   <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
   <!-- nice select -->

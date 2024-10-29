@@ -21,7 +21,7 @@
                     <a href="" class="footer-logo">IndoEvents</a>
                     <div class="footer_social">
                         <a href="">
-                            <i class="fa-brands fa-twitter" aria-hidden="true"></i>
+                            <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
                         </a>
                         <a href="">
                             <i class="fa-brands fa-instagram" aria-hidden="true"></i>

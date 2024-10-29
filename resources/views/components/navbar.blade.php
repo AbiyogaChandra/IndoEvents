@@ -44,7 +44,7 @@
                         @endif
                     @endauth
                 </ul>
-                <div class="user_option ms-auto">
+                <div class="user_option ms-auto text-center">
                     @auth
                         <a href="api/logout" class="order_online">Keluar</a>
                     @else

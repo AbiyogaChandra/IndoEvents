@@ -36,6 +36,10 @@ Route::get('/register', function () {
     return view('register');
 })->middleware('guest');
 
+Route::get('/settings', function () {
+    return view('settings');
+});
+
 Route::get('/api/register', [UserController::class, 'register'])->middleware('guest');
 
 Route::get('/api/login', [UserController::class, 'login'])->middleware('guest');

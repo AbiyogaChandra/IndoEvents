@@ -17,15 +17,11 @@
 
     <title>IndoEvents</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     <!-- toggle password visiblity css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toggle-password-visibility.css') }}" />
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
     <!-- nice select  -->
     <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}"/>
-    <!-- Custom styles for this template -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <!-- responsive style -->
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
 
@@ -103,8 +99,6 @@
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <!-- popper js -->
     <script src="{{ asset('js/popper.min.js') }}"></script>
-    <!-- bootstrap js -->
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <!-- isotope js -->
     <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
     <!-- nice select -->

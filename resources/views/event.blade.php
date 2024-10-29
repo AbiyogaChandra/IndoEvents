@@ -15,13 +15,9 @@
 
   <title>IndoEvents</title>
 
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
+  @vite(['resources/scss/app.scss', 'resources/js/app.js'])
   <!-- nice select  -->
   <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}" />
-  <!-- Custom styles for this template -->
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
 
@@ -65,13 +61,13 @@
   </div>
   <br>
   <br>
-  <section class="food_section layout_padding-bottom">
+  <section class="food_section layout_padding-bottom event">
     <div class="container">
       <div class="row">
         <div class="col-8">
-          <h1 style="font-family: 'Open Sans'; font-weight: bold">JUDUL JUDUL JUDUL JUDUL JUDUL JUDUL</h1>
-          <h3 style="font-family: 'Montserrat'">DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-            DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI </h3>
+          <h1 class="title">JUDUL JUDUL JUDUL JUDUL JUDUL JUDUL</h1>
+          <h4 class="description">DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
+            DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI </h4>
           <br>
           <br>
           <h5 style="color: gray"><i class="fa-regular fa-calendar fa-fw"></i><span> Senin, November 11</span></h5>
@@ -84,17 +80,17 @@
         </div>
         <div class="col-4">
           <div class="row">
-            <div class="container" style="border: solid 2px gray; border-radius: 22px; padding: 20px">
+            <div class="container" style="background-color: #222831; color: white; border-radius: 22px; padding: 20px">
               <div class="d-flex justify-content-center">
                 <h3>Rp50.000</h3>
               </div>
               <br>
-              <div class="d-flex justify-content-center">
-                <button>Beli Tiket</button>
+              <div class="btn-box d-flex justify-content-center">
+                <a href="">Beli Tiket</a>
               </div>
               <br>
               <div class="d-flex justify-content-center">
-                <h6 style="color: gray">10rb orang telah mendaftar!</h6>
+                <h6 style="color: lightgray">10rb orang telah mendaftar!</h6>
               </div>
             </div>
           </div>
@@ -114,14 +110,14 @@
                 <h6 style="color: gray">dari 3rb orang</h6>
               </div>
               <br>
-              <div class="d-flex justify-content-center">
-                <button>Beri Skor</button>
+              <div class="btn-box d-flex justify-content-center" style="color: white">
+                <a href="">Beri Skor</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-5">
         <div class="col-5">
           <div class="container" style="border: solid 2px gray; border-radius: 22px; padding: 20px">
             <h4>Pembuat Acara</h4>
@@ -138,8 +134,8 @@
                 <br>
                 <div class="row">
                   <div class="container">
-                    <div class="d-flex justify-content-center">
-                      <button>Kunjungi</button>
+                    <div class="btn-box d-flex justify-content-center">
+                      <a href="">Kunjungi</a>
                     </div>
                   </div>
                 </div>
@@ -149,9 +145,14 @@
         </div>
         <div class="col-7">
           <div class="d-flex justify-content-end align-items-end">
-            <a href="" class="fw-bold">
-              <i class="fa-solid fa-flag"></i> Laporkan
-            </a>
+            <div>
+              <a href="" class="fw-bold">
+                <i class="fa-solid fa-flag"></i> Laporkan
+              </a><br>
+              <a href="" class="fw-bold">
+                <i class="fa-solid fa-share-nodes"></i> Bagikan
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -162,7 +163,7 @@
       <br>
       <div class="row">
         <div class="col-12">
-          <h2 style="font-family: 'Montserrat'">Komentar</h2>
+          <h2 class="section_title">Komentar</h2>
           <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
             <div class="row">
               <div class="d-flex flex-start">
@@ -265,8 +266,6 @@
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
   <!-- popper js -->
   <script src="{{ asset('js/popper.min.js') }}"></script>
-  <!-- bootstrap js -->
-  <script src="{{ asset('js/bootstrap.js') }}"></script>
   <!-- isotope js -->
   <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
   <!-- nice select -->

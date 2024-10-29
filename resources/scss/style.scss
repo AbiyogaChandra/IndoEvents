@@ -1,3 +1,7 @@
+@use 'sass:color';
+@import "~bootstrap/scss/variables";
+@import "../css/fonts";
+
 $white: #ffffff;
 $black: #000000;
 $primary1: #ff6060;
@@ -6,10 +10,27 @@ $textCol: #1f1f1f;
 
 @mixin main-font {
   font-family: "Open Sans", sans-serif;
+  font-style: normal;
 }
 
 @mixin second-font {
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Playfair Display';
+  font-style: italic;
+}
+
+@mixin montserrat-font {
+  font-family: 'Montserrat';
+  font-style: normal;
+}
+
+@mixin roboto-font {
+  font-family: 'Roboto';
+  font-style: normal;
+}
+
+@mixin archivo-black-font {
+  font-family: 'Archivo Black';
+  font-style: normal;
 }
 
 @mixin hero_btn($col1, $col2, $pad1, $pad2, $bRadius) {
@@ -22,7 +43,7 @@ $textCol: #1f1f1f;
   border: none;
 
   &:hover {
-    background-color: darken($color: $col1, $amount: 15);
+    background-color: color.scale($color: $col1, $lightness: -10%);
   }
 }
 
@@ -65,6 +86,22 @@ body {
 h1,
 h2 {
   @include second-font();
+}
+
+.section_title {
+  @include montserrat-font()
+}
+
+.event {
+
+  .title {
+    @include main-font();
+    font-weight: bold;
+  }
+
+  .description {
+    @include montserrat-font();
+  }
 }
 
 .heading_container {
@@ -157,6 +194,7 @@ a:focus {
 
 .header_section {
   padding: 15px 0;
+  background-color: #222831;
 
   .container-fluid {
     padding-right: 25px;
@@ -165,12 +203,20 @@ a:focus {
 }
 
 .navbar-brand {
-  @include second-font();
+  @include archivo-black-font();
 
-  span {
-    font-weight: bold;
-    font-size: 32px;
-    color: $white;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 32px;
+
+  .left {
+    margin-left: 16px;
+    color: $primary1;
+  }
+
+  .right {
+    color: $white
   }
 }
 
@@ -227,7 +273,6 @@ a:focus {
 
     &:hover {
       color: $primary1;
-
     }
   }
 
@@ -333,6 +378,10 @@ a:focus {
   .detail-box {
     color: $white;
     margin-bottom: 145px;
+    background-color: rgba(0, 0, 0, 0); 
+    backdrop-filter: blur(10px); 
+    padding: 20px; 
+    border-radius: 25%;
 
     h1 {
       font-size: 3.5rem;
@@ -341,7 +390,8 @@ a:focus {
     }
 
     p {
-      font-size: 14px;
+      @include montserrat-font();
+      font-size: 20px;
     }
 
     a {
@@ -492,21 +542,18 @@ a:focus {
     color: $white;
     border-radius: 15px;
     overflow: hidden;
-    background: linear-gradient(to bottom, #f1f2f3 25px, $primary2 25px);
+    background: $primary2;
 
     .img-box {
-      background: #f1f2f3;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 215px;
       border-radius: 0 0 0 45px;
       margin: -1px;
-      padding: 25px;
 
       img {
         max-width: 100%;
-        max-height: 145px;
         transition: all .2s;
       }
     }
@@ -532,9 +579,9 @@ a:focus {
       justify-content: space-between;
 
       a {
-        width: 40px;
+        width: 80px;
         height: 40px;
-        border-radius: 100%;
+        border-radius: 25px;
         background: $primary1;
         display: flex;
         justify-content: center;
@@ -560,10 +607,13 @@ a:focus {
   .btn-box {
     display: flex;
     justify-content: center;
-    margin-top: 45px;
 
     a {
       @include hero_btn($primary1, $white, 10px, 55px, 45px);
+    }
+
+    .view-btn {
+      @include hero_btn($primary1, $white, 10px, 10px, 45px);
     }
   }
 }
@@ -904,13 +954,13 @@ a:focus {
 // end footer section
 
 .google-login-button {
-  color: var(--bs-gray-dark);
-  border: 1px solid gray;
+  color: $gray-800;
+  border: 1px solid $gray-800;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
 .google-login-button:hover {
-  color: #ff6060;
-  border: 1px solid #ff6060;
+  color: $primary1;
+  border: 1px solid $primary1;
 }
