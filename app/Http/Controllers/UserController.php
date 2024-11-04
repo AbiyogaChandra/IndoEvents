@@ -159,9 +159,10 @@ class UserController extends Controller
                     'password' => $randomPassword,
                     'username' => $randomUsername,
                     'profile_id' => $profile->id,
-                    'google_id' => $googleUser->id
                 ]
             );
+            $user->google_id = $googleUser->id;
+            $user->save();
             Auth::login($user);
         }
         return redirect('/home');

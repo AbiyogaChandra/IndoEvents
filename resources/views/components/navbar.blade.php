@@ -36,17 +36,22 @@
                             <a class="nav-link" href="">Buat Acara</a>
                         </li>
                     @endif
-                    @auth
-                        @if(auth()->user()->level == 'admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="admin">Panel Admin</a>
-                            </li>
-                        @endif
-                    @endauth
                 </ul>
                 <div class="user_option ms-auto text-center">
                     @auth
-                        <a href="api/logout" class="order_online">Keluar</a>
+                        <!--a href="api/logout" class="order_online">Keluar</a-->
+                        <div class="dropdown">
+                            <a class="dropdown-toggle d-flex align-items-center p-2" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white; border-radius: 45px;">
+                                <img src="{{ Auth::user()->profile?->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/placeholder.jpg') }}" 
+                                    class="rounded-circle me-2" 
+                                    width="36px" height="36px" alt="User Profile">
+                                <span style="color: black;">{{ auth()->user()->username }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="settings">Pengaturan</a></li>
+                                <li><a class="dropdown-item" href="api/logout">Keluar</a></li>
+                            </ul>
+                        </div>
                     @else
                         <a href="register" class="order_online">Buat Akun</a>
                     @endauth

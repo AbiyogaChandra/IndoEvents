@@ -15,7 +15,7 @@
 
     <title>IndoEvents</title>
 
-    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+    @vite(['resources/scss/bootstrap.scss', 'resources/scss/app.scss', 'resources/js/app.js'])
     <!-- nice select  -->
     <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}" />
     <!-- responsive style -->

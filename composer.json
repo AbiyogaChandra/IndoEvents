@@ -13,7 +13,8 @@
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
-        "log1x/laravel-webfonts": "^1.0"
+        "log1x/laravel-webfonts": "^1.0",
+        "midtrans/midtrans-php": "^2.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

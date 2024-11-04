@@ -1,10 +1,2 @@
-@import "~bootstrap/scss/functions"; 
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-$primary: #ff6060; 
-$theme-colors: map-merge($theme-colors, (
-  "primary": $primary
-));
-@import "~bootstrap/scss/bootstrap";
 @import "@fortawesome/fontawesome-free/css/all.css";
 @import "style";

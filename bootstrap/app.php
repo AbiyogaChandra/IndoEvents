@@ -13,9 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-            'user' => \App\Http\Middleware\RedirectIfUnauthenticated::class,
+            'guest' => \App\Http\Middleware\GuestMiddleware::class,
+            'user' => \App\Http\Middleware\UserMiddleware::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'restrictAdmin' => \App\Http\Middleware\RestrictAdminAccess::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

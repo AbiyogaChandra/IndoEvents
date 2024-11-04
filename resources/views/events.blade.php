@@ -15,7 +15,7 @@
 
   <title>IndoEvents</title>
 
-  @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+  @vite(['resources/scss/bootstrap.scss', 'resources/scss/app.scss', 'resources/js/app.js'])
   <!-- nice select  -->
   <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}" />
   <!-- responsive style -->
@@ -102,7 +102,7 @@
         <div class="row">
           <div class="col-md-12 col-lg-12">
             <div class="detail-box">
-              <h1 class="text-center">Cari acara yang menarik!</h1>
+              <h1 class="fancy_title text-center">Cari acara yang menarik!</h1>
               <div class="d-flex justify-content-center h-100">
                 <div class="search">
                   <input type="text" class="search-input" placeholder="Cari..." name="">
@@ -126,208 +126,143 @@
   <!-- food section -->
 
   <section class="food_section layout_padding-bottom">
-    <div class="container">
-      <div class="filters-content">
-        <div class="row">
-          <div class="col ms-auto">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-100">
+        <!-- Sidebar Column for Filters -->
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="filter-box" style="padding: 20px; border: 2px solid gray; border-radius: 22px">
+            <h3>Filter Acara</h3>
+            <hr>
+            <form>
+              <div class="form-group">
+                <label for="location">Lokasi:</label>
+                <br>
+                <select id="location" class="form-select">
+                  <option value="jakarta">Jakarta</option>
+                  <option value="surabaya">Surabaya</option>
+                  <option value="bandung">Bandung</option>
+                  <!-- Add more locations as needed -->
+                </select>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="date">Tanggal:</label>
+                <br>
+                <input type="date" id="date" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-primary mt-3" style="color: white">Terapkan Filter</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Main Content Column -->
+        <div class="col-lg-9 col-md-8 d-flex justify-content-center">
+          <div class="w-100">
             <div class="d-flex align-items-center">
               <h2 class="section_title">Acara-Acara</h2>
               <span class="ms-auto">Urutkan dari:</span>
-              <select class="ms-3">
+              <select class="form-select w-auto ms-3">
                 <option value="follower">Pendaftar Terbanyak</option>
                 <option value="score">Skor Tertinggi</option>
                 <option value="recent">Terbaru</option>
               </select>
             </div>
-          </div>
-        </div>
-        <div class="row grid">
-          <div class="col-sm-6 col-lg-4 all">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" />
-                </div>
-                <div class="detail-box">
-                  <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                  <p>
-                    DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                    DESKRIPSI
-                  </p>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <div class="options">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 class="ms-1">10rb pendaftar</h6>
+            <div class="row grid">
+              <div class="col-sm-12 col-lg-6 all">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="images/hero.jpg" alt="Cover" />
                     </div>
-                    <div class="btn-box">
-                      <a href="event" class="view-btn">
-                        Lihat
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" />
-                </div>
-                <div class="detail-box">
-                  <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                  <p>
-                    DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                    DESKRIPSI
-                  </p>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <div class="options">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 class="ms-1">10rb pendaftar</h6>
-                    </div>
-                    <div class="btn-box">
-                      <a href="event" class="view-btn">
-                        Lihat
-                      </a>
+                    <div class="detail-box">
+                      <h5>JUDUL JUDUL JUDUL JUDUL</h5>
+                      <p>
+                        DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
+                        DESKRIPSI
+                        DESKRIPSI
+                      </p>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <div class="options">
+                        <div class="d-flex align-items-center">
+                          <i class="fa fa-user" aria-hidden="true"></i>
+                          <h6 class="ms-1">10rb pendaftar</h6>
+                        </div>
+                        <div class="btn-box">
+                          <a href="event" class="view-btn">
+                            Lihat
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" />
-                </div>
-                <div class="detail-box">
-                  <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                  <p>
-                    DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                    DESKRIPSI
-                  </p>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <div class="options">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 class="ms-1">10rb pendaftar</h6>
+              <div class="col-sm-12 col-lg-6 all">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="images/hero.jpg" alt="Cover" />
                     </div>
-                    <div class="btn-box">
-                      <a href="event" class="view-btn">
-                        Lihat
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" />
-                </div>
-                <div class="detail-box">
-                  <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                  <p>
-                    DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                    DESKRIPSI
-                  </p>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <div class="options">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 class="ms-1">10rb pendaftar</h6>
-                    </div>
-                    <div class="btn-box">
-                      <a href="event" class="view-btn">
-                        Lihat
-                      </a>
+                    <div class="detail-box">
+                      <h5>JUDUL JUDUL JUDUL JUDUL</h5>
+                      <p>
+                        DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
+                        DESKRIPSI
+                        DESKRIPSI
+                      </p>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <div class="options">
+                        <div class="d-flex align-items-center">
+                          <i class="fa fa-user" aria-hidden="true"></i>
+                          <h6 class="ms-1">10rb pendaftar</h6>
+                        </div>
+                        <div class="btn-box">
+                          <a href="event" class="view-btn">
+                            Lihat
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" />
-                </div>
-                <div class="detail-box">
-                  <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                  <p>
-                    DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                    DESKRIPSI
-                  </p>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <div class="options">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 class="ms-1">10rb pendaftar</h6>
+              <div class="col-sm-12 col-lg-6 all">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="images/hero.jpg" alt="Cover" />
                     </div>
-                    <div class="btn-box">
-                      <a href="event" class="view-btn">
-                        Lihat
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="images/hero.jpg" alt="Cover" />
-                </div>
-                <div class="detail-box">
-                  <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                  <p>
-                    DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                    DESKRIPSI
-                  </p>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <div class="options">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                      <h6 class="ms-1">10rb pendaftar</h6>
-                    </div>
-                    <div class="btn-box">
-                      <a href="event" class="view-btn">
-                        Lihat
-                      </a>
+                    <div class="detail-box">
+                      <h5>JUDUL JUDUL JUDUL JUDUL</h5>
+                      <p>
+                        DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
+                        DESKRIPSI
+                        DESKRIPSI
+                      </p>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <div class="options">
+                        <div class="d-flex align-items-center">
+                          <i class="fa fa-user" aria-hidden="true"></i>
+                          <h6 class="ms-1">10rb pendaftar</h6>
+                        </div>
+                        <div class="btn-box">
+                          <a href="event" class="view-btn">
+                            Lihat
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -352,7 +287,7 @@
   <!-- isotope js -->
   <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
   <!-- nice select -->
-  <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+  <!--script src="{{ asset('js/jquery.nice-select.min.js') }}"></script-->
   <!-- custom js -->
   <script src="{{ asset('js/custom.js') }}"></script>
 </body>

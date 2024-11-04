@@ -15,7 +15,7 @@
 
   <title>IndoEvents</title>
 
-  @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+  @vite(['resources/scss/bootstrap.scss', 'resources/scss/app.scss', 'resources/js/app.js'])
   <!-- nice select  -->
   <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}" />
   <!-- responsive style -->
@@ -79,26 +79,8 @@
           <br>
         </div>
         <div class="col-4">
-          <div class="row">
-            <div class="container" style="background-color: #222831; color: white; border-radius: 22px; padding: 20px">
-              <div class="d-flex justify-content-center">
-                <h3>Rp50.000</h3>
-              </div>
-              <br>
-              <div class="btn-box d-flex justify-content-center">
-                <a href="">Beli Tiket</a>
-              </div>
-              <br>
-              <div class="d-flex justify-content-center">
-                <h6 style="color: lightgray">10rb orang telah mendaftar!</h6>
-              </div>
-            </div>
-          </div>
-          <br>
-          <br>
-          <br>
-          <div class="row">
-            <div class="container" style="border: solid 2px gray; border-radius: 22px; padding: 20px">
+        <div class="row">
+            <div class="container" style="border-radius: 22px; padding: 20px">
               <div class="d-flex justify-content-center h3" style="color: gold">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -112,6 +94,24 @@
               <br>
               <div class="btn-box d-flex justify-content-center" style="color: white">
                 <a href="">Beri Skor</a>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <br>
+          <div class="row">
+            <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
+              <div class="d-flex justify-content-center">
+                <h3>Rp50.000</h3>
+              </div>
+              <br>
+              <div class="btn-box d-flex justify-content-center">
+                <a href="">Beli Tiket</a>
+              </div>
+              <br>
+              <div class="d-flex justify-content-center">
+                <h6 style="color: gray">10rb orang telah mendaftar!</h6>
               </div>
             </div>
           </div>
@@ -165,6 +165,22 @@
         <div class="col-12">
           <h2 class="section_title">Komentar</h2>
           <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
+            <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
+              <div class="d-flex flex-start">
+                <img class="rounded-circle shadow-1-strong me-3"
+                  src="{{ asset('images/pfp.jpg') }}" alt="User avatar" width="60" height="60" />
+                <div class="w-100">
+                  <h6 class="fw-bold mb-1">DISPLAY NAME DISPLAY NAME</h6>
+                  <span style="color: gray">@USERNAME_USERNAME</span>
+                  <div class="mt-3">
+                    <textarea class="form-control" rows="3" placeholder="Tulis komentar Anda..."></textarea>
+                  </div>
+                  <div class="mt-3 d-flex justify-content-end btn-box">
+                    <a href="">Kirim</a>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="d-flex flex-start">
                 <img class="rounded-circle shadow-1-strong me-3"

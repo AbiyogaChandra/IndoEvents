@@ -20,12 +20,15 @@ class User extends Authenticatable implements FilamentUser, HasName
         'password',
         'username',
         'level',
-        'profile_id',
-        'google_id'
+        'profile_id'
     ];
 
     protected $hidden = [
         'password'
+    ];
+
+    protected $guarded = [
+        'google_id'
     ];
 
     public function canAccessFilament(): bool

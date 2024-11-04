@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,9 +20,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/');
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect('/');
     }
 }

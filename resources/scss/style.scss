@@ -1,5 +1,5 @@
 @use 'sass:color';
-@import "~bootstrap/scss/variables";
+//@import "~bootstrap/scss/variables";
 @import "../css/fonts";
 
 $white: #ffffff;
@@ -7,6 +7,7 @@ $black: #000000;
 $primary1: #ff6060;
 $primary2: #222831;
 $textCol: #1f1f1f;
+$gray-800: #343a40;
 
 @mixin main-font {
   font-family: "Open Sans", sans-serif;
@@ -83,8 +84,7 @@ body {
   padding-bottom: 90px;
 }
 
-h1,
-h2 {
+.fancy_title {
   @include second-font();
 }
 

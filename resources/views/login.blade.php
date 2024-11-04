@@ -17,7 +17,7 @@
 
     <title>IndoEvents</title>
 
-    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+    @vite(['resources/scss/bootstrap.scss', 'resources/scss/app.scss', 'resources/js/app.js'])
     <!-- toggle password visiblity css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toggle-password-visibility.css') }}" />
     <!-- nice select  -->
@@ -57,7 +57,7 @@
                     </div>
                   </div>
                   <div class="mb-3">
-                    <input type="submit" class="btn btn-primary btn-block w-100" value="Masuk">
+                    <input type="submit" class="btn btn-primary btn-block w-100" style="color: white" value="Masuk">
                   </div>
                 </form>
                 <p class="text-muted font-weight-bold ">

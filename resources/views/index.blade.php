@@ -15,7 +15,7 @@
 
   <title>IndoEvents</title>
 
-  @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+  @vite(['resources/scss/bootstrap.scss', 'resources/scss/app.scss', 'resources/js/app.js'])
   <!-- nice select  -->
   <link rel="stylesheet" href="{{ asset('css/nice-select.min.css') }}" />
   <!-- responsive style -->
@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-md-7 col-lg-8">
             <div class="detail-box">
-              <h1>Acara Terbaik di Indonesia</h1>
+              <h1 class="fancy_title">Acara Terbaik di Indonesia</h1>
               <p>
                 Temukan acara terbaik di Indonesia! IndoEvents menghubungkan
                 Anda dengan konser, festival, olahraga, dan acara budaya di
