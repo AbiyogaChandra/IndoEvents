@@ -250,7 +250,7 @@
                                     <label for="username">Nama Akun</label>
                                     <input type="text" class="form-control" id="username"
                                         aria-describedby="usernameHelp" placeholder="Masukkan nama akunmu"
-                                        value="abiyogachandra">
+                                        value="{{ auth()->user()->username }}">
                                     <small id="usernameHelp" class="form-text text-muted">Setelah mengganti nama akunmu, nama akunmu yang lama dapat digunakan oleh orang lain.</small>
                                 </div>
                                 <hr>
