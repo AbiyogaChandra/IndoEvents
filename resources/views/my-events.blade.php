@@ -24,11 +24,48 @@
 </head>
 
 <body>
-    <x-navbar />
+    <x-navbar :currentRoute="$currentRoute" />
     
-    <!-- footer section -->
+    <div class="container mt-5 mb-5">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Acara Saya</h1>
+            <div class="btn-box">
+                <a href="/create-event" class="submit-btn">Buat Acara</a>
+            </div>
+        </div>
+
+        <!-- Events Table -->
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Judul</th>
+                    <th scope="col">Skor</th>
+                    <th scope="col">Waktu</th>
+                    <th scope="col" class="text-center">Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Row -->
+                <tr>
+                    <td>Event Title</td>
+                    <td>4.5</td>
+                    <td>March 10, 2025, 6:00 PM</td>
+                    <td class="text-center">
+                        <a href="/view-event/1" class="btn btn-info btn-sm me-2">
+                            <i class="fa fa-eye"></i> 
+                        </a>
+                        <button class="btn btn-danger btn-sm" onclick="confirmDelete(1)">
+                            <i class="far fa-trash-can"></i>
+                        </button>
+                    </td>
+                </tr>
+                <!-- Repeat rows as necessary for each event -->
+            </tbody>
+        </table>
+    </div>
+
     <x-footer />
-    <!-- footer section -->
 
     <!-- jQery -->
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>

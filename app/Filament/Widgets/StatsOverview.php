@@ -13,9 +13,9 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Users', User::count()),
-            Stat::make('Events', Event::count()),
-            Stat::make('Transactions', Transaction::count()),
+            Stat::make('Pengguna', User::count()),
+            Stat::make('Acara', Event::count()),
+            Stat::make('Transaksi', Transaction::count()),
         ];
     }
 }

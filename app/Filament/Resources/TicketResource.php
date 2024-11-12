@@ -27,7 +27,12 @@ class TicketResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('user_id')
+                    ->label('ID Akun')
+                    ->required(),
+                Forms\Components\TextInput::make('event_id')
+                    ->label('ID Event')
+                    ->required(),
             ]);
     }
 
@@ -35,7 +40,17 @@ class TicketResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID'),
+                Tables\Columns\TextColumn::make('code')
+                    ->label('Kode')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('user_id')
+                    ->label('ID User')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('event_id')
+                    ->label('ID Event')
+                    ->searchable(),
             ])
             ->filters([
                 //

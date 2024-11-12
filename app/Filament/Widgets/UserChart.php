@@ -24,7 +24,7 @@ class UserChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Users',
+                    'label' => 'Pengguna',
                     'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],

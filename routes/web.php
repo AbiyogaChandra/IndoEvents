@@ -31,7 +31,15 @@ Route::middleware(['restrictAdmin'])->group(function () {
 
     Route::get('/settings', function () {
         return view('settings');
-    });
+    })->middleware('user');
+
+    Route::get('/my-events', function () {
+        return view('my-events', [
+            'currentRoute' => Route::currentRouteName(),
+        ]);
+    })
+    ->middleware('user')
+    ->name('my-events');
 
     Route::get('/login', function () {
         return view('login');
