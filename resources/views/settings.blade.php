@@ -105,6 +105,7 @@
         opacity: 0; 
         transition: opacity 0.3s;
         border-radius: 50%;
+        cursor: grab;
     }
 
     .profile-photo-container:hover .upload-label {
