@@ -150,7 +150,9 @@
                 <br>
                 <input type="date" id="date" class="form-control" />
               </div>
-              <button type="submit" class="btn btn-primary mt-3" style="color: white">Terapkan Filter</button>
+              <div class="btn-box">
+                <button type="submit" class="submit-btn mt-4">Terapkan Filter</button>
+              </div>
             </form>
           </div>
         </div>
@@ -174,7 +176,7 @@
                     <div class="img-box">
                       <img src="images/hero.jpg" alt="Cover" />
                     </div>
-                    <div class="detail-box">
+                    <div class="detail-box mt-2">
                       <h5>JUDUL JUDUL JUDUL JUDUL</h5>
                       <p>
                         DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
@@ -192,7 +194,7 @@
                           <h6 class="ms-1">10rb pendaftar</h6>
                         </div>
                         <div class="btn-box">
-                          <a href="event" class="view-btn">
+                          <a href="event">
                             Lihat
                           </a>
                         </div>
@@ -207,7 +209,7 @@
                     <div class="img-box">
                       <img src="images/hero.jpg" alt="Cover" />
                     </div>
-                    <div class="detail-box">
+                    <div class="detail-box mt-2">
                       <h5>JUDUL JUDUL JUDUL JUDUL</h5>
                       <p>
                         DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
@@ -225,7 +227,7 @@
                           <h6 class="ms-1">10rb pendaftar</h6>
                         </div>
                         <div class="btn-box">
-                          <a href="event" class="view-btn">
+                          <a href="event">
                             Lihat
                           </a>
                         </div>
@@ -240,7 +242,7 @@
                     <div class="img-box">
                       <img src="images/hero.jpg" alt="Cover" />
                     </div>
-                    <div class="detail-box">
+                    <div class="detail-box mt-2">
                       <h5>JUDUL JUDUL JUDUL JUDUL</h5>
                       <p>
                         DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
@@ -258,7 +260,7 @@
                           <h6 class="ms-1">10rb pendaftar</h6>
                         </div>
                         <div class="btn-box">
-                          <a href="event" class="view-btn">
+                          <a href="event">
                             Lihat
                           </a>
                         </div>
