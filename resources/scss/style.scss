@@ -260,12 +260,27 @@ a:focus {
 }
 
 .auth {
+
+  .google-login-button {
+    color: $gray-800;
+    border: 1px solid $gray-800;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  
+  .google-login-button:hover {
+    color: $primary1;
+    border: 1px solid $primary1;
+    text-decoration: none;
+  }
+
   a {
     color: $primary1;
   }
 
   a:hover {
-    color: color.scale($color: $primary1, $lightness: -10%);
+    color: color.scale($primary1, $lightness: -10%);
+    text-decoration: underline;
   }  
 }
 
@@ -275,9 +290,10 @@ a:focus {
     @include hero_btn($primary1, $white, 10px, 55px, 45px);
   }
 
-  .view-btn {
-    @include hero_btn($primary1, $white, 10px, 10px, 45px);
+  .submit-btn {
+    @include hero_btn($primary1, $white, 10px, 30px, 45px);
   }
+
 }
 
 .user_option {
@@ -600,13 +616,7 @@ a:focus {
       justify-content: space-between;
 
       a {
-        width: 80px;
-        height: 40px;
-        border-radius: 25px;
-        background: $primary1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include hero_btn($primary1, $white, 10px, 30px, 45px);
 
         svg {
           width: 18px;
@@ -961,15 +971,3 @@ a:focus {
 }
 
 // end footer section
-
-.google-login-button {
-  color: $gray-800;
-  border: 1px solid $gray-800;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-.google-login-button:hover {
-  color: $primary1;
-  border: 1px solid $primary1;
-}

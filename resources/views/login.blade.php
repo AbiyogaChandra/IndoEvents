@@ -29,7 +29,7 @@
 
   <body>
     <section class="pt-5 pb-5 mt-0 align-items-center d-flex min-vh-100" style="background-color: #eae7dc;">
-      <div class="container-fluid">
+      <div class="container-fluid auth">
         <div class="row justify-content-center align-items-center d-flex-row text-center h-100">
           <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-4 h-50 ">
             <div class="card shadow">
@@ -57,7 +57,7 @@
                     </div>
                   </div>
                   <div class="mb-3 btn-box">
-                    <input type="submit" class="view-btn rounded w-100" value="Masuk">
+                    <input type="submit" class="submit-btn rounded w-100" value="Masuk">
                   </div>
                 </form>
                 <p class="text-muted font-weight-bold ">
