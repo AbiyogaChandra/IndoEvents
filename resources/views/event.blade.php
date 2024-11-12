@@ -30,11 +30,13 @@
       padding: 10px 55px;
     }
 
-    a {
+    .event-actions a,
+    .report-comment {
       color: #ff6060;
     }
 
-    a:hover {
+    .event-actions a:hover,
+    .report-comment:hover {
       color: #dd6060;
     }
   </style>
@@ -145,7 +147,7 @@
         </div>
         <div class="col-7">
           <div class="d-flex justify-content-end align-items-end">
-            <div>
+            <div class="event-actions">
               <a href="" class="fw-bold">
                 <i class="fa-solid fa-flag"></i> Laporkan
               </a><br>
@@ -203,7 +205,7 @@
                     scrambled it.
                   </p>
                   <br>
-                  <a href="" class="fw-bold">
+                  <a href="" class="report-comment fw-bold">
                     <i class="fa-solid fa-flag"></i> Laporkan
                   </a>
                 </div>
@@ -232,7 +234,7 @@
                     scrambled it.
                   </p>
                   <br>
-                  <a href="" class="fw-bold">
+                  <a href="" class="report-comment fw-bold">
                     <i class="fa-solid fa-flag"></i> Laporkan
                   </a>
                 </div>
@@ -261,7 +263,7 @@
                     scrambled it.
                   </p>
                   <br>
-                  <a href="" class="fw-bold">
+                  <a href="" class="report-comment fw-bold">
                     <i class="fa-solid fa-flag"></i> Laporkan
                   </a>
                 </div>
