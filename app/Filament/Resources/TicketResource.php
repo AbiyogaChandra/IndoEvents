@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReportResource\Pages;
-use App\Filament\Resources\ReportResource\RelationManagers;
-use App\Models\Report;
+use App\Filament\Resources\TicketResource\Pages;
+use App\Filament\Resources\TicketResource\RelationManagers;
+use App\Models\Ticket;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ReportResource extends Resource
+class TicketResource extends Resource
 {
-    protected static ?string $model = Report::class;
+    protected static ?string $model = Ticket::class;
 
-    protected static ?string $modelLabel = 'Laporan';
+    protected static ?string $modelLabel = 'Tiket';
 
-    protected static ?string $navigationIcon = 'heroicon-o-flag';
+    protected static ?string $navigationIcon = 'heroicon-o-ticket';
 
-    protected static ?int $navigationSort = 8;
+    protected static ?int $navigationSort = 7;
 
     public static function form(Form $form): Form
     {
@@ -35,11 +35,7 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('type')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('content'),
-                Tables\Columns\TextColumn::make('oject_id'),
+                //
             ])
             ->filters([
                 //
@@ -64,14 +60,9 @@ class ReportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListReports::route('/'),
-            'create' => Pages\CreateReport::route('/create'),
-            'edit' => Pages\EditReport::route('/{record}/edit'),
+            'index' => Pages\ListTickets::route('/'),
+            'create' => Pages\CreateTicket::route('/create'),
+            'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
-    }
-
-    public static function canCreate(): bool
-    {
-        return false;
     }
 }

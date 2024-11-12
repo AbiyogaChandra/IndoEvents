@@ -262,7 +262,7 @@
           </div>
         </div>
       </div>
-      <div class="btn-box mt-5">
+      <div class="d-flex btn-box mt-5 justify-content-center">
         <a href="events">Telusuri Lebih Lanjut</a>
       </div>
     </div>

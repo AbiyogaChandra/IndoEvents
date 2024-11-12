@@ -12,10 +12,14 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 
 class ProfileResource extends Resource
 {
     protected static ?string $model = Profile::class;
+
+    protected static ?string $modelLabel = 'Profil';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
@@ -49,12 +53,14 @@ class ProfileResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->recordUrl(fn (Profile $record) => static::getUrl('view', ['record' => $record->getKey()]));
     }
 
     public static function getRelations(): array
@@ -70,6 +76,18 @@ class ProfileResource extends Resource
             'index' => Pages\ListProfiles::route('/'),
             'create' => Pages\CreateProfile::route('/create'),
             'edit' => Pages\EditProfile::route('/{record}/edit'),
+            'view' => Pages\ViewProfile::route('/{record}/view'),
         ];
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\TextEntry::make('display_name')
+                    ->label('Nama Lengkap'),
+                Infolists\Components\ImageEntry::make('profile_photo')
+                    ->label('Foto Profil'),
+            ]);
     }
 }

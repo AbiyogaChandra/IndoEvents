@@ -17,6 +17,8 @@ class RequestResource extends Resource
 {
     protected static ?string $model = Request::class;
 
+    protected static ?string $modelLabel = 'Permintaan';
+
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
     protected static ?int $navigationSort = 5;

@@ -1,0 +1,55 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+@config 'tailwind.config.js';
+
+.fi-sidebar-header, .fi-topbar > nav {
+    background-color: #222831 !important;
+}
+
+.fi-sidebar-nav, .fi-dropdown-panel {
+    background-color: #111415;
+
+    .fi-dropdown-header-icon, 
+    .fi-dropdown-header-label {
+        color: lightgray;
+    }
+
+    .fi-dropdown-list {
+        button:hover {
+            background: none;
+
+            .fi-dropdown-list-item-icon, 
+            .fi-dropdown-list-item-label {
+                color: #ff6060;
+            }
+        }
+
+        .fi-dropdown-list-item-icon, 
+        .fi-dropdown-list-item-label {
+            color: lightgray;
+        }
+    }
+}
+
+.fi-sidebar-item-icon, 
+.fi-sidebar-item-label {
+    color: lightgray;
+}
+
+.fi-sidebar-item a:hover {
+    background: none;
+
+    .fi-sidebar-item-icon, .fi-sidebar-item-label {
+        color: #ff6060;
+    }
+}
+
+.fi-sidebar-item-active {
+    a, a:hover {
+        background: none;
+    }
+
+    .fi-sidebar-item-icon, 
+    .fi-sidebar-item-label {
+        color: #ff6060;
+    }
+}

@@ -9,6 +9,7 @@ use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Responses\LogoutResponse;
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContract;
+use Filament\Support\Facades\FilamentIcon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        
     }
 }

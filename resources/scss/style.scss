@@ -259,6 +259,27 @@ a:focus {
   }
 }
 
+.auth {
+  a {
+    color: $primary1;
+  }
+
+  a:hover {
+    color: color.scale($color: $primary1, $lightness: -10%);
+  }  
+}
+
+.btn-box {
+
+  a {
+    @include hero_btn($primary1, $white, 10px, 55px, 45px);
+  }
+
+  .view-btn {
+    @include hero_btn($primary1, $white, 10px, 10px, 45px);
+  }
+}
+
 .user_option {
   display: flex;
   align-items: center;
@@ -604,18 +625,6 @@ a:focus {
     }
   }
 
-  .btn-box {
-    display: flex;
-    justify-content: center;
-
-    a {
-      @include hero_btn($primary1, $white, 10px, 55px, 45px);
-    }
-
-    .view-btn {
-      @include hero_btn($primary1, $white, 10px, 10px, 45px);
-    }
-  }
 }
 
 // end food section

@@ -71,8 +71,8 @@
                       <button type="button" class="btn border-0 btn-toggle-password-visibility"></button>
                     </div>
                   </div>
-                  <div class="mb-3">
-                    <input type="submit" class="btn btn-primary btn-block w-100" style="color: white" value="Buat Akun">
+                  <div class="mb-3 btn-box">
+                    <input type="submit" class="view-btn rounded w-100" value="Buat Akun">
                   </div>
                 </form>
                 <p class="text-muted font-weight-bold ">

@@ -1,6 +1,6 @@
 @vite(['resources/scss/app.scss', 'resources/js/app.js'])
-<div class="flex items-center space-x-4" style=" font-family: 'Archivo Black'; font-weight: bold; font-size: 32px;">
-    <img src="{{ asset('images/logo.png') }}" style="height: 48px" />
-    <span style="margin-left: 16px; color: #FF6060;">Indo</span>
-    <span style="color: #FFFFFF;">Events</span>
+<div class="flex items-center navbar-brand" style="font-size: 24px">
+    <img src="{{ asset('images/logo.png') }}" style="height: 40px" />
+    <span class="left" style="margin-left: 8px">Indo</span>
+    <span class="right">Events</span>
 </div>

@@ -26,7 +26,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->favicon(asset('images/Logo.png'))
             ->brandLogo(fn () => view('filament.admin.logo'))
-            ->darkMode(true, true)
+            ->darkMode(false, true)
             ->default()
             ->id('admin')
             ->path('admin')
@@ -56,6 +56,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->sidebarWidth('16rem');
     }
 }
