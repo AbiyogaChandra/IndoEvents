@@ -22,9 +22,15 @@
                         <li class="nav-item {{ $currentRoute === 'events' ? 'active' : '' }}">
                             <a class="nav-link" href="events">Telusuri Acara</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about">Buat Acara</a>
-                        </li>
+                        @auth
+                            <li class="nav-item {{ $currentRoute === 'my-events' ? 'active' : '' }}">
+                                <a class="nav-link" href="my-events">Acara Saya</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="register">Buat Acara</a>
+                            </li>
+                        @endauth
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="home">Beranda</a>
@@ -32,24 +38,38 @@
                         <li class="nav-item">
                             <a class="nav-link" href="events">Telusuri Acara</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Buat Acara</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="my-events">Acara Saya</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="register">Buat Acara</a>
+                            </li>
+                        @endauth
                     @endif
                 </ul>
                 <div class="user_option ms-auto text-center">
                     @auth
                         <!--a href="api/logout" class="order_online">Keluar</a-->
                         <div class="dropdown">
-                            <a class="dropdown-toggle d-flex align-items-center p-2" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white; border-radius: 45px;">
+                            <a class="dropdown-toggle d-flex align-items-center p-2 shadow-sm" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #fff; border-radius: 50px;">
                                 <img src="{{ Auth::user()->profile?->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/placeholder.jpg') }}" 
-                                    class="rounded-circle me-2" 
-                                    width="36px" height="36px" alt="User Profile">
-                                <span style="color: black;">{{ auth()->user()->username }}</span>
+                                    class="rounded-circle me-2 border" 
+                                    width="40" height="40" alt="User Profile">
+                                <span class="fw-semibold" style="color: #333;">{{ auth()->user()->username }}</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="settings">Pengaturan</a></li>
-                                <li><a class="dropdown-item" href="api/logout">Keluar</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="settings">
+                                        <i class="fas fa-cog me-2" style="color: #6c757d;"></i> Pengaturan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="api/logout">
+                                        <i class="fas fa-sign-out-alt me-2" style="color: #dc3545;"></i> Keluar
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     @else
