@@ -94,12 +94,29 @@
     .nav-pills .nav-link .feather {
         stroke: currentColor;
     }
+
+    .upload-label {
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-color: rgba(0, 0, 0, 0.4); 
+        opacity: 0; 
+        transition: opacity 0.3s;
+        border-radius: 50%;
+    }
+
+    .profile-photo-container:hover .upload-label {
+        opacity: 1;
+    }
     </style>
 
 </head>
 
 <body>
     <x-navbar />
+    @auth
     <div class="container settings-container mt-5 mb-5">
         <div class="row gutters-sm">
             <div class="col-md-4 d-none d-md-block">
@@ -192,15 +209,34 @@
                             <h6>PENGATURAN PROFIL</h6>
                             <hr>
                             <form>
-                                <div class="form-group mb-3">
-                                    <label for="fullName">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="fullName"
-                                        aria-describedby="fullNameHelp" placeholder="Masukkan nama lengkapmu"
-                                        value="Abiyoga Chandra">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="profilePhoto">Unggah Foto Profil</label>
-                                    <input type="file" class="form-control" id="profilePhoto" name="profilePhoto" accept="image/*">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group mb-3">
+                                            Foto Profil
+                                            <div class="profile-photo-container mb-4" style="position: relative; width: 128px; height: 128px;">
+                                                <img id="selectedAvatar" src="{{ Auth::user()->profile?->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/placeholder.jpg') }}"
+                                                    class="rounded-circle mt-2" style="width: 128px; height: 128px; object-fit: cover;" alt="example placeholder" />
+
+                                                <label for="profilePhoto" class="mt-2 upload-label text-white d-flex justify-content-center align-items-center">
+                                                    <div class="text-center">
+                                                        <i class="fs-3 fa fa-file-image" aria-hidden="true"></i><br>
+                                                        Unggah Foto
+                                                    </div>
+                                                </label>
+
+                                                <input type="file" class="form-control d-none" id="profilePhoto" name="profilePhoto"
+                                                    onchange="displaySelectedImage(event, 'selectedAvatar')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group mb-3">
+                                            <label for="fullName">Nama Lengkap</label>
+                                            <input type="text" class="form-control" id="fullName"
+                                                aria-describedby="fullNameHelp" placeholder="Masukkan nama lengkapmu"
+                                                value="{{ auth()->user()->profile?->display_name }}">
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
                                 <button type="button" class="btn btn-primary" style="color: white">Simpan Perubahan</button>
@@ -250,6 +286,7 @@
             </div>
         </div>
     </div>
+    @endauth
 
     <!-- footer section -->
     <x-footer />
@@ -265,6 +302,23 @@
     <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
     <!-- custom js -->
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script>
+        function displaySelectedImage(event, elementId) {
+            const selectedImage = document.getElementById(elementId);
+            const fileInput = event.target;
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    selectedImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>
