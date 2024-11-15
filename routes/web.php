@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 
 Route::redirect('/admin/login', '/login')->middleware('admin');
 
@@ -41,6 +42,16 @@ Route::middleware(['restrictAdmin'])->group(function () {
     ->middleware('user')
     ->name('my-events');
 
+    Route::get('/checkout', function () {
+        return view('checkout');
+    })
+    ->middleware('user')
+    ->name('checkout');
+
+    Route::get('/payment', [TransactionController::class, 'createPayment'])
+        ->name('payment.create')
+        ->middleware('user');
+
     Route::get('/login', function () {
         return view('login');
     })->middleware('guest');
@@ -49,9 +60,9 @@ Route::middleware(['restrictAdmin'])->group(function () {
         return view('register');
     })->middleware('guest');
 
-    Route::get('/api/register', [UserController::class, 'register'])->middleware('guest');
+    Route::post('/api/register', [UserController::class, 'register'])->middleware('guest');
 
-    Route::get('/api/login', [UserController::class, 'login'])->middleware('guest');
+    Route::post('/api/login', [UserController::class, 'login'])->middleware('guest');
 
     Route::get('/auth/google/redirect', [UserController::class, 'redirectToGoogle'])->middleware('guest');
 

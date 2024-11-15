@@ -40,7 +40,8 @@
                     {{ $errors->first() }}
                   </div>
                 @endif
-                <form action="api/register">
+                <form action="api/register" method="POST">
+                  @csrf
                   <div class="mb-3 input-group">
                     <div class="d-flex input-group-prepend">
                       <span class="input-group-text text-black-50"> <i class="fa fa-user fa-fw"></i> </span>

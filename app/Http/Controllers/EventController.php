@@ -72,14 +72,8 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        //find event by ID
-        $event = Event::findOrfail($id);
-        //make response JSON
-        return response()->json([
-            'success' => true,
-            'message' => 'Event Details',
-            'data' => $event
-        ], 200);
+        $event = Event::findOrFail($id); // Retrieve event by ID
+        return view('event', compact('event')); // Pass the event data to the view
     }
 
     /**

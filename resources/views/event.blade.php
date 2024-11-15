@@ -23,10 +23,10 @@
 
   <style>
     button {
-      background-color: #ff6060; 
-      border: none; 
-      color: white; 
-      border-radius: 45px; 
+      background-color: #ff6060;
+      border: none;
+      color: white;
+      border-radius: 45px;
       padding: 10px 55px;
     }
 
@@ -74,14 +74,15 @@
           <br>
           <h5 style="color: gray"><i class="fa-regular fa-calendar fa-fw"></i><span> Senin, November 11</span></h5>
           <h5 style="color: gray"><i class="fa-regular fa-clock fa-fw"></i><span> 07:00 - 15:00</span></h5>
-          <h5 style="color: gray"><i class="fa-solid fa-location-dot fa-fw"></i><span> LOKASI LOKASI LOKASI LOKASI LOKASI LOKASI LOKASI LOKASI</span></h5>
+          <h5 style="color: gray"><i class="fa-solid fa-location-dot fa-fw"></i><span> LOKASI LOKASI LOKASI LOKASI
+              LOKASI LOKASI LOKASI LOKASI</span></h5>
           <br>
           <br>
           <br>
           <br>
         </div>
         <div class="col-4">
-        <div class="row">
+          <div class="row">
             <div class="container" style="border-radius: 22px; padding: 20px">
               <div class="d-flex justify-content-center h3" style="color: gold">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -109,7 +110,8 @@
               </div>
               <br>
               <div class="btn-box d-flex justify-content-center">
-                <a href="">Beli Tiket</a>
+                <button id="ticket-btn">Beli Tiket</button>
+                <span id="loadingIcon" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
               </div>
               <br>
               <div class="d-flex justify-content-center">
@@ -169,8 +171,8 @@
           <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
             <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
               <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3"
-                  src="{{ asset('images/pfp.jpg') }}" alt="User avatar" width="60" height="60" />
+                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="User avatar"
+                  width="60" height="60" />
                 <div class="w-100">
                   <h6 class="fw-bold mb-1">DISPLAY NAME DISPLAY NAME</h6>
                   <span style="color: gray">@USERNAME_USERNAME</span>
@@ -185,9 +187,8 @@
             </div>
             <div class="row">
               <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3"
-                  src="{{ asset('images/pfp.jpg') }}" alt="avatar" width="60"
-                  height="60" />
+                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"
+                  width="60" height="60" />
                 <div>
                   <div class="d-flex align-items-start">
                     <div>
@@ -210,13 +211,12 @@
                   </a>
                 </div>
               </div>
-              <hr style="margin-top: 20px"/>
+              <hr style="margin-top: 20px" />
             </div>
             <div class="row">
               <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3"
-                  src="{{ asset('images/pfp.jpg') }}" alt="avatar" width="60"
-                  height="60" />
+                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"
+                  width="60" height="60" />
                 <div>
                   <div class="d-flex align-items-start">
                     <div>
@@ -239,13 +239,12 @@
                   </a>
                 </div>
               </div>
-              <hr style="margin-top: 20px"/>
+              <hr style="margin-top: 20px" />
             </div>
             <div class="row">
               <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3"
-                  src="{{ asset('images/pfp.jpg') }}" alt="avatar" width="60"
-                  height="60" />
+                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"
+                  width="60" height="60" />
                 <div>
                   <div class="d-flex align-items-start">
                     <div>
@@ -268,7 +267,7 @@
                   </a>
                 </div>
               </div>
-              <hr style="margin-top: 20px"/>
+              <hr style="margin-top: 20px" />
             </div>
           </div>
         </div>
@@ -290,6 +289,104 @@
   <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
   <!-- custom js -->
   <script src="{{ asset('js/custom.js') }}"></script>
+
+  <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="paymentModalLabel">Pembayaran</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <h4>Harga</h4>
+              <span id="transaction-price"></span>
+            </div>
+            <div class="btn-box">
+              <button type="submit" class="submit-btn" id="pay-button">Bayar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
+    
+  <script type="module">
+    document.getElementById("ticket-btn").addEventListener("click", function () {
+      
+      document.getElementById("ticket-btn").classList.add("d-none");
+      document.getElementById("loadingIcon").classList.remove("d-none");
+
+      fetch("{{ route('payment.create') }}")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("transaction-price").textContent = data.transaction.price;
+            new bootstrap.Modal(document.getElementById("paymentModal")).show();
+            document.getElementById('pay-button').onclick = function () {
+              snap.pay(data.snapToken, {
+                onSuccess: function (result) {
+                  myModal.hide();
+                  console.log(result);
+                },
+                onPending: function (result) {
+                  console.log(result);
+                },
+                onError: function (result) {
+                  console.log(result);
+                }
+              });
+            };
+        })
+        .catch(error => console.error("Error fetching transaction data:", error))
+        .finally(() => {
+            document.getElementById("ticket-btn").classList.remove("d-none");
+            document.getElementById("loadingIcon").classList.add("d-none");
+        });
+    });
+  </script>
+
+  @if (isset($asdasd))
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="paymentModalLabel">Pembayaran</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <h4>Harga</h4>
+              {{ $transaction->price }}
+            </div>
+            <div class="btn-box">
+              <button type="submit" class="submit-btn" id="pay-button">Bayar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
+    <script type="module">
+      var myModal = new bootstrap.Modal(document.getElementById("paymentModal"), {});
+      myModal.show();
+      document.getElementById('pay-button').onclick = function () {
+        snap.pay('{{ $snapToken }}', {
+        onSuccess: function (result) {
+          myModal.hide();
+          console.log(result);
+        },
+        onPending: function (result) {
+          console.log(result);
+        },
+        onError: function (result) {
+          console.log(result);
+        }
+        });
+      };
+    </script>
+  @endif
+
 </body>
 
 </html>
