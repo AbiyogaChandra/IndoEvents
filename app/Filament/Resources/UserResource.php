@@ -45,10 +45,6 @@ class UserResource extends Resource
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('profile_id')
-                    ->label('ID Profil')
-                    ->required()
-                    ->visible(fn ($get) => $get('id') !== null),
             ])->label('Akun'),
 
             Forms\Components\Group::make([
@@ -58,9 +54,9 @@ class UserResource extends Resource
                 Forms\Components\FileUpload::make('profile.profile_photo')
                     ->label('Foto Profil')
                     ->disk('public')
-                    ->directory('uploads'),
-            ])->label('Profil')
-            ->hidden(fn ($get) => $get('id') !== null),
+                    ->directory('uploads')
+                    ->avatar(),
+            ])->label('Profil'),
         ]);
     }
 
@@ -75,16 +71,14 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Alamat E-Mail'),
-                Tables\Columns\TextColumn::make('profile_id')
-                    ->label('ID Profil')
-                    ->formatStateUsing(fn (User $record) => sprintf('%d (Lihat)', $record->profile_id))
+                Tables\Columns\TextColumn::make('profile.id')
+                    ->label('Profil')
+                    ->formatStateUsing(fn (User $record) => "Lihat")
                     ->color('primary')
                     ->url(
-                        fn (User $record) => ProfileResource::getUrl(
-                            'view', [
-                                'record' => $record->profile_id
-                            ]
-                        )
+                        fn (User $record) => $record->profile
+                            ? ProfileResource::getUrl('view', ['record' => $record->profile->id])
+                            : null
                     ),
             ])
             ->filters([
@@ -130,7 +124,8 @@ class UserResource extends Resource
                 Infolists\Components\TextEntry::make('profile.display_name')
                     ->label('Nama Lengkap'),
                 Infolists\Components\ImageEntry::make('profile.profile_photo')
-                    ->label('Foto Profil'),
+                    ->label('Foto Profil')
+                    ->circular(),
             ]);
     }
 

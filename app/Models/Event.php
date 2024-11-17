@@ -18,4 +18,9 @@ class Event extends Model
         'photo',
         'profile_id'
     ];
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
 }

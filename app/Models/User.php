@@ -19,8 +19,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         'email', 
         'password',
         'username',
-        'level',
-        'profile_id'
+        'level'
     ];
 
     protected $hidden = [
@@ -48,6 +47,6 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function profile()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->hasOne(Profile::class);
     }
 }

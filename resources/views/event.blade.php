@@ -67,15 +67,13 @@
     <div class="container">
       <div class="row">
         <div class="col-8">
-          <h1 class="title">JUDUL JUDUL JUDUL JUDUL JUDUL JUDUL</h1>
-          <h4 class="description">DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-            DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI </h4>
+          <h1 class="title">{{ $event->title }}</h1>
+          <h6 class="description lh-base">{{ $event->description }}</h6>
           <br>
           <br>
-          <h5 style="color: gray"><i class="fa-regular fa-calendar fa-fw"></i><span> Senin, November 11</span></h5>
-          <h5 style="color: gray"><i class="fa-regular fa-clock fa-fw"></i><span> 07:00 - 15:00</span></h5>
-          <h5 style="color: gray"><i class="fa-solid fa-location-dot fa-fw"></i><span> LOKASI LOKASI LOKASI LOKASI
-              LOKASI LOKASI LOKASI LOKASI</span></h5>
+          <h5 style="color: gray"><i class="fa-regular fa-calendar fa-fw"></i><span> {{ \Carbon\Carbon::parse($event->event_time)->translatedFormat('l, j F Y') }}</span></h5>
+          <h5 style="color: gray"><i class="fa-regular fa-clock fa-fw"></i><span> {{ \Carbon\Carbon::parse($event->event_time)->format('H:i') }}</span></h5>
+          <h5 style="color: gray"><i class="fa-solid fa-location-dot fa-fw"></i><span> {{ $event->location }}</span></h5>
           <br>
           <br>
           <br>
@@ -106,7 +104,7 @@
           <div class="row">
             <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
               <div class="d-flex justify-content-center">
-                <h3>Rp50.000</h3>
+                <h3>Rp{{ number_format($event->ticket_price, 0, ',', '.') }}</h3>
               </div>
               <br>
               <div class="btn-box d-flex justify-content-center">
@@ -132,8 +130,8 @@
               </div>
               <div class="col-8">
                 <div class="row">
-                  <h5>DISPLAY NAME DISPLAY NAME</h5>
-                  <h6 style="color: gray">@USERNAME_USERNAME</h6>
+                  <h5>{{ $event->profile->display_name ?? 'Tidak diketahui' }}</h5>
+                  <h6 style="color: gray">{{ $event->profile->user->username ?? 'Tidak diketahui' }}</h6>
                 </div>
                 <br>
                 <div class="row">
@@ -169,6 +167,7 @@
         <div class="col-12">
           <h2 class="section_title">Komentar</h2>
           <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
+            @auth
             <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
               <div class="d-flex flex-start">
                 <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="User avatar"
@@ -185,6 +184,7 @@
                 </div>
               </div>
             </div>
+            @endauth
             <div class="row">
               <div class="d-flex flex-start">
                 <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"

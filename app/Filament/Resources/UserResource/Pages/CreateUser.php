@@ -9,47 +9,41 @@ use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
+    protected function handleRecordCreation(array $data): Model
     {
-        // Initialize profile photo path
+        $profileData = $data['profile'] ?? [];
+        unset($data['profile']); 
+
+        $user = parent::handleRecordCreation($data);
+
         $profilePhotoPath = null;
 
-        // Ensure profile data exists
-        if (isset($data['profile'])) {
-            // Check if a profile photo was uploaded or if a profile photo URL is provided
-            if (isset($data['profile']['profile_photo'])) {
-                $profilePhotoPath = $data['profile']['profile_photo'];
-            } elseif (isset($data['profile_photo_url'])) {
-                // If no photo was uploaded, try to fetch from URL
-                $avatarUrl = $data['profile_photo_url'];
-                $fileName = time() . "_" . Str::slug($data['profile']['display_name'], '_') . '.png';
-                $avatarContent = Http::withOptions(['verify' => false])->get($avatarUrl)->body();
-                $filePath = 'uploads/' . $fileName;
-                Storage::disk('public')->put($filePath, $avatarContent);
-                $profilePhotoPath = $filePath;
-            }
-
-            // Create the Profile record
-            $profile = Profile::create([
-                'display_name' => Str::limit($data['profile']['display_name'], 50),
-                'profile_photo' => $profilePhotoPath,
-            ]);
-
-            // Add the profile_id to the User's data
-            $data['profile_id'] = $profile->id;
-
-            // Remove profile fields from User data to prevent errors
-            unset($data['profile']);
-            unset($data['profile_photo_url']);
+        if (isset($profileData['profile_photo'])) {
+            $profilePhotoPath = $profileData['profile_photo'];
+        } elseif (!empty($data['profile_photo_url'])) {
+            $avatarUrl = $data['profile_photo_url'];
+            $fileName = time() . "_" . Str::slug($profileData['display_name'], '_') . '.png';
+    
+            $avatarContent = Http::withOptions(['verify' => false])->get($avatarUrl)->body();
+    
+            $filePath = 'uploads/' . $fileName;
+            Storage::disk('public')->put($filePath, $avatarContent);
+            $profilePhotoPath = $filePath;
         }
+    
+        Profile::create([
+            'display_name' => Str::limit($profileData['display_name'], 50),
+            'profile_photo' => $profilePhotoPath,
+            'user_id' => $user->id,
+        ]);
 
-        // Return the modified data for user creation
-        return $data;
+        return $user;
     }
 
     protected function getRedirectUrl(): string

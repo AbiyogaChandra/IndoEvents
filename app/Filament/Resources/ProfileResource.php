@@ -34,7 +34,8 @@ class ProfileResource extends Resource
                     ->maxLength(20),
                 Forms\Components\FileUpload::make('profile_photo')
                     ->directory('uploads')
-                    ->required(),
+                    ->required()
+                    ->avatar(),
             ]);
     }
 
@@ -87,7 +88,8 @@ class ProfileResource extends Resource
                 Infolists\Components\TextEntry::make('display_name')
                     ->label('Nama Lengkap'),
                 Infolists\Components\ImageEntry::make('profile_photo')
-                    ->label('Foto Profil'),
+                    ->label('Foto Profil')
+                    ->circular(),
             ]);
     }
 }

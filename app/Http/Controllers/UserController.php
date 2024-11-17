@@ -73,18 +73,19 @@ class UserController extends Controller
         ], $messages);
         
         try {
-            $profile = Profile::create(
-                [
-                    'display_name' => Str::limit($request->username, 50)
-                ]
-            );
 
             $user = User::create([
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'username' => $request->username,
-                'profile_id' => $profile->id,
             ]);
+
+            $profile = Profile::create(
+                [
+                    'display_name' => Str::limit($request->username, 50),
+                    'user_id' => $user->id
+                ]
+            );
 
             Auth::login($user);
 
@@ -136,6 +137,20 @@ class UserController extends Controller
             $baseName = Str::limit($googleUser->name, 16, '');
             $baseName = preg_replace('/\s+/', '', $baseName);
 
+            $randomUsername = generateRandomUsername($baseName);
+
+            $randomPassword = Str::password(16);
+            $randomPassword = Hash::make($randomPassword);
+            $user = User::create(
+                [
+                    'email' => $googleUser->email,
+                    'password' => $randomPassword,
+                    'username' => $randomUsername
+                ]
+            );
+            $user->google_id = $googleUser->id;
+            $user->save();
+
             $avatarUrl = $googleUser->getAvatar();
             $fileName = time() . "_" . $baseName . '.png';
             $avatarContent = Http::withOptions(['verify' => false])->get($avatarUrl)->body();
@@ -145,24 +160,11 @@ class UserController extends Controller
             $profile = Profile::create(
                 [
                     'display_name' => Str::limit($googleUser->name, 50),
-                    'profile_photo' => $filePath
+                    'profile_photo' => $filePath,
+                    'user_id' => $user->id
                 ]
             );
 
-            $randomUsername = generateRandomUsername($baseName);
-
-            $randomPassword = Str::password(16);
-            $randomPassword = Hash::make($randomPassword);
-            $user = User::create(
-                [
-                    'email' => $googleUser->email,
-                    'password' => $randomPassword,
-                    'username' => $randomUsername,
-                    'profile_id' => $profile->id,
-                ]
-            );
-            $user->google_id = $googleUser->id;
-            $user->save();
             Auth::login($user);
         }
         return redirect('/home');

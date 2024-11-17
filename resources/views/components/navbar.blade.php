@@ -17,41 +17,40 @@
                 <ul class="navbar-nav ms-1">
                     @if (isset($currentRoute))
                         <li class="nav-item {{ $currentRoute === 'home' ? 'active' : '' }}">
-                            <a class="nav-link" href="home">Beranda</a>
+                            <a class="nav-link" href="{{ route('home') }}">Beranda</a>
                         </li>
                         <li class="nav-item {{ $currentRoute === 'events' ? 'active' : '' }}">
-                            <a class="nav-link" href="events">Telusuri Acara</a>
+                            <a class="nav-link" href="{{ route('events') }}">Telusuri Acara</a>
                         </li>
                         @auth
                             <li class="nav-item {{ $currentRoute === 'my-events' ? 'active' : '' }}">
-                                <a class="nav-link" href="my-events">Acara Saya</a>
+                                <a class="nav-link" href="{{ route('my-events') }}">Acara Saya</a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="register">Buat Acara</a>
+                                <a class="nav-link" href="{{ route(name: 'register') }}">Buat Acara</a>
                             </li>
                         @endauth
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="home">Beranda</a>
+                            <a class="nav-link" href="{{ route('home') }}">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="events">Telusuri Acara</a>
+                            <a class="nav-link" href="{{ route('events') }}">Telusuri Acara</a>
                         </li>
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="my-events">Acara Saya</a>
+                                <a class="nav-link" href="{{ route('my-events') }}">Acara Saya</a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="register">Buat Acara</a>
+                                <a class="nav-link" href="{{ route('register') }}">Buat Acara</a>
                             </li>
                         @endauth
                     @endif
                 </ul>
                 <div class="user_option ms-auto text-center">
                     @auth
-                        <!--a href="api/logout" class="order_online">Keluar</a-->
                         <div class="dropdown">
                             <a class="dropdown-toggle d-flex align-items-center p-2 shadow-sm" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #fff; border-radius: 50px;">
                                 <img src="{{ Auth::user()->profile?->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/placeholder.jpg') }}" 
@@ -61,19 +60,19 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="settings">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('settings') }}">
                                         <i class="fas fa-cog me-2" style="color: #6c757d;"></i> Pengaturan
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="api/logout">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('api/logout') }}">
                                         <i class="fas fa-sign-out-alt me-2" style="color: #dc3545;"></i> Keluar
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     @else
-                        <a href="register" class="order_online">Buat Akun</a>
+                        <a href="{{ route('register') }}" class="order_online">Buat Akun</a>
                     @endauth
                 </div>
             </div>
