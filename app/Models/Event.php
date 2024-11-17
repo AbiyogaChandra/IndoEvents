@@ -23,4 +23,15 @@ class Event extends Model
     {
         return $this->belongsTo(Profile::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'event_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'event_id');
+    }
+
 }

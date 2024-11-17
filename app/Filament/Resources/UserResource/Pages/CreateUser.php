@@ -32,7 +32,7 @@ class CreateUser extends CreateRecord
     
             $avatarContent = Http::withOptions(['verify' => false])->get($avatarUrl)->body();
     
-            $filePath = 'uploads/' . $fileName;
+            $filePath = 'uploads/avatar/' . $fileName;
             Storage::disk('public')->put($filePath, $avatarContent);
             $profilePhotoPath = $filePath;
         }

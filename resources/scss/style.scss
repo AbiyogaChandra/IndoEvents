@@ -595,7 +595,9 @@ a:focus {
       padding: 25px;
 
       h5 {
+        overflow: hidden;
         font-weight: 600;
+        height: 50px;
       }
 
       p {

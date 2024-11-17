@@ -81,27 +81,6 @@
         </div>
         <div class="col-4">
           <div class="row">
-            <div class="container" style="border-radius: 22px; padding: 20px">
-              <div class="d-flex justify-content-center h3" style="color: gold">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-              </div>
-              <div class="d-flex justify-content-center">
-                <h6 style="color: gray">dari 3rb orang</h6>
-              </div>
-              <br>
-              <div class="btn-box d-flex justify-content-center" style="color: white">
-                <a href="">Beri Skor</a>
-              </div>
-            </div>
-          </div>
-          <br>
-          <br>
-          <br>
-          <div class="row">
             <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
               <div class="d-flex justify-content-center">
                 <h3>Rp{{ number_format($event->ticket_price, 0, ',', '.') }}</h3>
@@ -113,7 +92,26 @@
               </div>
               <br>
               <div class="d-flex justify-content-center">
-                <h6 style="color: gray">10rb orang telah mendaftar!</h6>
+                <h6 style="color: gray">{{ format_number($registrantsCount) }} orang telah mendaftar!</h6>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <br>
+          <div class="row">
+            <div class="container" style="border-radius: 22px; padding: 20px">
+              <div class="d-flex justify-content-center h3" style="color: #ff6060">
+                @for ($i = 1; $i <= 5; $i++)
+                  <i class="fa{{ $i <= round($averageRating) ? '' : 'r' }} fa-star" aria-hidden="true"></i>
+                @endfor
+              </div>
+              <div class="d-flex justify-content-center">
+                <h6 style="color: gray">dari {{ format_number($reviewsCount) }} orang</h6>
+              </div>
+              <br>
+              <div class="btn-box d-flex justify-content-center" style="color: white">
+                <a href="">Beri Skor</a>
               </div>
             </div>
           </div>
@@ -131,7 +129,7 @@
               <div class="col-8">
                 <div class="row">
                   <h5>{{ $event->profile->display_name ?? 'Tidak diketahui' }}</h5>
-                  <h6 style="color: gray">{{ $event->profile->user->username ?? 'Tidak diketahui' }}</h6>
+                  <h6 style="color: gray">{{'@' . $event->profile->user->username ?? 'Tidak diketahui' }}</h6>
                 </div>
                 <br>
                 <div class="row">

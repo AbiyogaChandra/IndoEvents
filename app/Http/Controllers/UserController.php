@@ -103,7 +103,6 @@ class UserController extends Controller
             'password.required' => 'Kata sandi wajib diisi.',
         ];
 
-        // Validate the input
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
@@ -154,7 +153,7 @@ class UserController extends Controller
             $avatarUrl = $googleUser->getAvatar();
             $fileName = time() . "_" . $baseName . '.png';
             $avatarContent = Http::withOptions(['verify' => false])->get($avatarUrl)->body();
-            $filePath = 'uploads/' . $fileName;
+            $filePath = 'uploads/avatar/' . $fileName;
             Storage::disk('public')->put($filePath, $avatarContent);
 
             $profile = Profile::create(

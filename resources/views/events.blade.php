@@ -160,116 +160,50 @@
         <!-- Main Content Column -->
         <div class="col-lg-9 col-md-8 d-flex justify-content-center">
           <div class="w-100">
-            <div class="d-flex align-items-center">
-              <h2 class="section_title">Acara-Acara</h2>
-              <span class="ms-auto">Urutkan dari:</span>
-              <select class="form-select w-auto ms-3">
-                <option value="follower">Pendaftar Terbanyak</option>
-                <option value="score">Skor Tertinggi</option>
-                <option value="recent">Terbaru</option>
-              </select>
-            </div>
-            <div class="row grid">
-              <div class="col-sm-12 col-lg-6 all">
-                <div class="box">
-                  <div>
-                    <div class="img-box">
-                      <img src="images/hero.jpg" alt="Cover" />
-                    </div>
-                    <div class="detail-box mt-2">
-                      <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                      <p>
-                        DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                        DESKRIPSI
-                        DESKRIPSI
-                      </p>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <div class="options">
-                        <div class="d-flex align-items-center">
-                          <i class="fa fa-user" aria-hidden="true"></i>
-                          <h6 class="ms-1">10rb pendaftar</h6>
-                        </div>
-                        <div class="btn-box">
-                          <a href="event">
-                            Lihat
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div class="d-flex align-items-center">
+                  <h2 class="section_title">Acara-Acara</h2>
+                  <span class="ms-auto">Urutkan dari:</span>
+                  <form method="GET" class="d-flex">
+                    <select name="filter" class="form-select w-auto ms-3" onchange="this.form.submit()">
+                      <option value="recent" {{ $filter === 'recent' ? 'selected' : '' }}>Terbaru</option>
+                      <option value="follower" {{ $filter === 'follower' ? 'selected' : '' }}>Pendaftar Terbanyak</option>
+                      <option value="score" {{ $filter === 'score' ? 'selected' : '' }}>Skor Tertinggi</option>
+                    </select>
+                  </form>
               </div>
-              <div class="col-sm-12 col-lg-6 all">
-                <div class="box">
-                  <div>
-                    <div class="img-box">
-                      <img src="images/hero.jpg" alt="Cover" />
-                    </div>
-                    <div class="detail-box mt-2">
-                      <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                      <p>
-                        DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                        DESKRIPSI
-                        DESKRIPSI
-                      </p>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <div class="options">
-                        <div class="d-flex align-items-center">
-                          <i class="fa fa-user" aria-hidden="true"></i>
-                          <h6 class="ms-1">10rb pendaftar</h6>
-                        </div>
-                        <div class="btn-box">
-                          <a href="event">
-                            Lihat
-                          </a>
-                        </div>
+              <div class="row grid">
+                  @forelse ($events as $event)
+                      <div class="col-sm-12 col-lg-6 all">
+                          <div class="box">
+                              <div>
+                                  <div class="img-box">
+                                      <img src="{{ asset($event->photo ? 'storage/' . $event->photo : 'images/hero.jpg') }}" alt="Cover" />
+                                  </div>
+                                  <div class="detail-box mt-2">
+                                      <h5>{{ Str::limit($event->title, 50) }}</h5>
+                                      <p>{{ Str::limit($event->description, 150) }}</p>
+                                      @for ($i = 1; $i <= 5; $i++)
+                                          <i class="fa{{ $i <= round($event->avg_rating) ? '' : 'r' }} fa-star" aria-hidden="true"></i>
+                                      @endfor
+                                      <div class="options">
+                                          <div class="d-flex align-items-center">
+                                              <i class="fa fa-user" aria-hidden="true"></i>
+                                              <h6 class="ms-1">{{ format_number($event->registrants_count) }} pendaftar</h6>
+                                          </div>
+                                          <div class="btn-box">
+                                              <a href="{{ route('event.show', $event->id) }}">
+                                                  Lihat
+                                              </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
+                  @empty
+                      <p class="text-center">Tidak ada acara ditemukan.</p>
+                  @endforelse
               </div>
-              <div class="col-sm-12 col-lg-6 all">
-                <div class="box">
-                  <div>
-                    <div class="img-box">
-                      <img src="images/hero.jpg" alt="Cover" />
-                    </div>
-                    <div class="detail-box mt-2">
-                      <h5>JUDUL JUDUL JUDUL JUDUL</h5>
-                      <p>
-                        DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI DESKRIPSI
-                        DESKRIPSI
-                        DESKRIPSI
-                      </p>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <div class="options">
-                        <div class="d-flex align-items-center">
-                          <i class="fa fa-user" aria-hidden="true"></i>
-                          <h6 class="ms-1">10rb pendaftar</h6>
-                        </div>
-                        <div class="btn-box">
-                          <a href="event">
-                            Lihat
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

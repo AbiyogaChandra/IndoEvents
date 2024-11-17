@@ -2,25 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Route;
 
 class EventController extends Controller
 {
+
+    public function home()
+    {
+        $popularEvents = Event::query()
+            ->select(
+                'events.*',
+                DB::raw('COALESCE(AVG(reviews.score), 0) as avg_rating'),
+                DB::raw('COUNT(tickets.id) as registrants_count')
+            )
+            ->leftJoin('reviews', 'events.id', '=', 'reviews.event_id')
+            ->leftJoin('tickets', 'events.id', '=', 'tickets.event_id')
+            ->groupBy('events.id')
+            ->orderBy('registrants_count', 'desc')
+            ->orderBy('avg_rating', 'desc') 
+            ->take(6) 
+            ->get();
+
+        $currentRoute = Route::currentRouteName();
+
+        return view('home', compact('popularEvents', 'currentRoute'));
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //get data from table events
-        $events = Event::latest()->get();
-        //make response JSON
-        return response()->json([
-            'success' => true,
-            'message' => 'Event List',
-            'data' => $events
-        ], 200);
+        $filter = $request->get('filter', 'recent');
+
+        //$events = Event::query();
+        $events = Event::query()
+            ->select(
+                'events.*',
+                DB::raw('COALESCE(AVG(reviews.score), 0) as averageRating'),
+                DB::raw('COUNT(tickets.id) as registrantsCount')
+            )
+            ->leftJoin('reviews', 'events.id', '=', 'reviews.event_id')
+            ->leftJoin('tickets', 'events.id', '=', 'tickets.event_id')
+            ->groupBy('events.id');
+
+        if ($filter === 'follower') {
+            $events->orderBy('registrantsCount', 'desc');
+        } elseif ($filter === 'score') {
+            $events->orderBy('averageRating', 'desc');
+        } else {
+            $events->orderBy('created_at', 'desc');
+        }
+
+        $events = $events->get();
+        $currentRoute = Route::currentRouteName();
+
+        return view(
+            'events', 
+            compact('events', 'filter', 'currentRoute')
+        );
     }
 
     /**
@@ -72,8 +116,12 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        $event = Event::findOrFail($id); // Retrieve event by ID
-        return view('event', compact('event')); // Pass the event data to the view
+        $event = Event::findOrFail($id);
+        $registrantsCount = $event->tickets()->count();
+        $reviewsCount = $event->reviews()->count();
+        $averageRating = $event->reviews()->avg('score');
+        
+        return view('event', compact('event', 'registrantsCount', 'reviewsCount', 'averageRating')); 
     }
 
     /**

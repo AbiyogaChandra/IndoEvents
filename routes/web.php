@@ -31,12 +31,14 @@ Route::middleware(['restrictAdmin'])->group(function () {
     })
     ->name('home');
 
-    Route::get('/events', function () {
+    /*Route::get('/events', function () {
         return view('events', [
             'currentRoute' => Route::currentRouteName(),
         ]);
     })
-    ->name('events');
+    ->name('events');*/
+
+    Route::get('/events', [EventController::class, 'index'])->name('events');
 
     Route::get('/event/{id}', [EventController::class, 'show'])
         ->name('event.show');
