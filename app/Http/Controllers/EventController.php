@@ -16,20 +16,23 @@ class EventController extends Controller
         $popularEvents = Event::query()
             ->select(
                 'events.*',
-                DB::raw('COALESCE(AVG(reviews.score), 0) as avg_rating'),
-                DB::raw('COUNT(tickets.id) as registrants_count')
+                DB::raw('COALESCE(AVG(reviews.score), 0) as averageRating'),
+                DB::raw('COUNT(tickets.id) as registrantsCount')
             )
             ->leftJoin('reviews', 'events.id', '=', 'reviews.event_id')
             ->leftJoin('tickets', 'events.id', '=', 'tickets.event_id')
             ->groupBy('events.id')
-            ->orderBy('registrants_count', 'desc')
-            ->orderBy('avg_rating', 'desc') 
+            ->orderBy('registrantsCount', 'desc')
+            ->orderBy('averageRating', 'desc') 
             ->take(6) 
             ->get();
 
         $currentRoute = Route::currentRouteName();
 
-        return view('home', compact('popularEvents', 'currentRoute'));
+        return view(
+            'index', 
+            compact('popularEvents', 'currentRoute')
+        );
     }
 
     /**
@@ -38,8 +41,9 @@ class EventController extends Controller
     public function index(Request $request)
     {
         $filter = $request->get('filter', 'recent');
+        $location = $request->get('location', null);
+        $date = $request->get('date', null);
 
-        //$events = Event::query();
         $events = Event::query()
             ->select(
                 'events.*',
@@ -50,6 +54,15 @@ class EventController extends Controller
             ->leftJoin('tickets', 'events.id', '=', 'tickets.event_id')
             ->groupBy('events.id');
 
+        // Apply filters
+        if ($location) {
+            $events->where('events.location', $location);
+        }
+
+        if ($date) {
+            $events->whereDate('events.event_time', $date);
+        }
+
         if ($filter === 'follower') {
             $events->orderBy('registrantsCount', 'desc');
         } elseif ($filter === 'score') {
@@ -58,11 +71,12 @@ class EventController extends Controller
             $events->orderBy('created_at', 'desc');
         }
 
-        $events = $events->get();
+        $events = $events->paginate(6);
+
         $currentRoute = Route::currentRouteName();
 
         return view(
-            'events', 
+            'events',
             compact('events', 'filter', 'currentRoute')
         );
     }

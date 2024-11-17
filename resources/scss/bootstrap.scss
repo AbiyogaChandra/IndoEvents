@@ -6,3 +6,19 @@ $theme-colors: map-merge($theme-colors, (
   "primary": $primary
 ));
 @import "~bootstrap/scss/bootstrap";
+
+.pagination {
+  .page-item.active .page-link {
+    background-color: $primary;
+    border-color: $primary;
+    color: white;
+  }
+
+  .page-item:not(.disabled, .active) .page-link {
+    color: $primary;
+
+    &:hover {
+      border-color: lighten($primary, 10%);
+    }
+  }
+}

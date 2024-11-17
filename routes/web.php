@@ -17,28 +17,14 @@ Route::get('/api/logout', [UserController::class, 'logout'])
 //
 Route::middleware(['restrictAdmin'])->group(function () {
 
-    Route::get('/', function () {
-        return view('index', [
-            'currentRoute' => Route::currentRouteName(),
-        ]);
-    })
-    ->name('home');
+    Route::get( '/', [EventController::class, 'home'])
+        ->name('home');
 
-    Route::get('/home', function () {
-        return view('index', [
-            'currentRoute' => Route::currentRouteName(),
-        ]);
-    })
-    ->name('home');
+    Route::get( '/home', [EventController::class, 'home'])
+        ->name('home');
 
-    /*Route::get('/events', function () {
-        return view('events', [
-            'currentRoute' => Route::currentRouteName(),
-        ]);
-    })
-    ->name('events');*/
-
-    Route::get('/events', [EventController::class, 'index'])->name('events');
+    Route::get('/events', [EventController::class, 'index'])
+        ->name('events');
 
     Route::get('/event/{id}', [EventController::class, 'show'])
         ->name('event.show');

@@ -133,22 +133,20 @@
           <div class="filter-box" style="padding: 20px; border: 2px solid gray; border-radius: 22px">
             <h3>Filter Acara</h3>
             <hr>
-            <form>
+            <form method="GET" action="{{ route('events') }}">
               <div class="form-group">
                 <label for="location">Lokasi:</label>
-                <br>
-                <select id="location" class="form-select">
-                  <option value="jakarta">Jakarta</option>
-                  <option value="surabaya">Surabaya</option>
-                  <option value="bandung">Bandung</option>
-                  <!-- Add more locations as needed -->
+                <select id="location" name="location" class="form-select">
+                  <option value="">Semua Lokasi</option>
+                  <option value="Jakarta" {{ request('location') == 'Jakarta' ? 'selected' : '' }}>Jakarta</option>
+                  <option value="Surabaya" {{ request('location') == 'Surabaya' ? 'selected' : '' }}>Surabaya</option>
+                  <option value="Bandung" {{ request('location') == 'Bandung' ? 'selected' : '' }}>Bandung</option>
                 </select>
               </div>
               <br>
               <div class="form-group">
                 <label for="date">Tanggal:</label>
-                <br>
-                <input type="date" id="date" class="form-control" />
+                <input type="date" id="date" name="date" class="form-control" value="{{ request('date') }}" />
               </div>
               <div class="btn-box">
                 <button type="submit" class="submit-btn mt-4">Terapkan Filter</button>
@@ -183,12 +181,12 @@
                                       <h5>{{ Str::limit($event->title, 50) }}</h5>
                                       <p>{{ Str::limit($event->description, 150) }}</p>
                                       @for ($i = 1; $i <= 5; $i++)
-                                          <i class="fa{{ $i <= round($event->avg_rating) ? '' : 'r' }} fa-star" aria-hidden="true"></i>
+                                          <i class="fa{{ $i <= round($event->averageRating) ? '' : 'r' }} fa-star" aria-hidden="true"></i>
                                       @endfor
                                       <div class="options">
                                           <div class="d-flex align-items-center">
                                               <i class="fa fa-user" aria-hidden="true"></i>
-                                              <h6 class="ms-1">{{ format_number($event->registrants_count) }} pendaftar</h6>
+                                              <h6 class="ms-1">{{ format_number($event->registrantsCount) }} pendaftar</h6>
                                           </div>
                                           <div class="btn-box">
                                               <a href="{{ route('event.show', $event->id) }}">
@@ -201,8 +199,11 @@
                           </div>
                       </div>
                   @empty
-                      <p class="text-center">Tidak ada acara ditemukan.</p>
+                      <p class="text-center">Tidak ada acara yang ditemukan.</p>
                   @endforelse
+              </div>
+              <div class="mt-4">
+                {{ $events->links('pagination::bootstrap-5') }}
               </div>
           </div>
         </div>
