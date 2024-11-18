@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
@@ -21,32 +23,35 @@ class ReviewController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $eventId)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required', 
-            'event_id' => 'required',
-            'score' => 'required'
+        $user = Auth::user();
+
+        $request->validate([
+            'rating' => 'required|integer|between:1,5',
         ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+
+        $existingReview = Review::where('event_id', $eventId)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if ($existingReview) {
+            $existingReview->update([
+                'score' => $request->rating,
+            ]);
+
+            return redirect()->route('event.show', $eventId)
+                ->with('success', 'Your review has been updated successfully.');
+        } else {
+            $review = Review::create([
+                'event_id' => $eventId,
+                'user_id' => $user->id,
+                'score' => $request->rating,
+            ]);
+
+            return redirect()->route('event.show', $eventId)
+                ->with('success', 'Your review has been submitted successfully.');
         }
-        $review = Review::create([
-            'user_id' => $request->user_id, 
-            'event_id' => $request->event_id,
-            'score' => $request->score
-        ]);
-        if($review) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Review Created',
-                'data' => $review
-            ], 201);
-        }
-        return response()->json([
-            'success' => false,
-            'message' => 'Review Failed to Save',
-        ], 409);
     }
 
     public function update(Request $request, Review $review)

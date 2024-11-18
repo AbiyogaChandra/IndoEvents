@@ -18,7 +18,11 @@ class EventController extends Controller
             ->select(
                 'events.*',
                 DB::raw('COALESCE(AVG(reviews.score), 0) as averageRating'),
-                DB::raw('COUNT(tickets.id) as registrantsCount')
+                DB::raw('(
+                    SELECT COUNT(*) 
+                    FROM tickets 
+                    WHERE tickets.event_id = events.id
+                ) as registrantsCount')
             )
             ->leftJoin('reviews', 'events.id', '=', 'reviews.event_id')
             ->leftJoin('tickets', 'events.id', '=', 'tickets.event_id')
@@ -49,10 +53,13 @@ class EventController extends Controller
             ->select(
                 'events.*',
                 DB::raw('COALESCE(AVG(reviews.score), 0) as averageRating'),
-                DB::raw('COUNT(tickets.id) as registrantsCount')
+                DB::raw('(
+                    SELECT COUNT(*) 
+                    FROM tickets 
+                    WHERE tickets.event_id = events.id
+                ) as registrantsCount')
             )
             ->leftJoin('reviews', 'events.id', '=', 'reviews.event_id')
-            ->leftJoin('tickets', 'events.id', '=', 'tickets.event_id')
             ->groupBy('events.id');
 
         // Apply filters

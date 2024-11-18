@@ -48,6 +48,29 @@
       cursor: grab;
       text-decoration: underline;
     }
+
+    .star-rating {
+        display: flex;
+        direction: row;
+        justify-content: center;
+    }
+
+    .star-rating i {
+        font-size: 2rem;
+        color: #ff6060;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .star-rating i.selected,
+    .star-rating i:hover,
+    .star-rating i:hover ~ i {
+        color: #FF6060; /* Active color for the stars */
+    }
+
+    .star-rating i:hover ~ i {
+        color: #ddd; /* Reset other stars on hover */
+    }
   </style>
 
 </head>
@@ -126,7 +149,11 @@
               </div>
               <br>
               <div class="btn-box d-flex justify-content-center" style="color: white">
-                <a href="">Beri Skor</a>
+                @auth
+                  <a href="#" id="review-btn">Beri Skor</a>
+                @else
+                  <a href="{{ route('register') }}">Beri Skor</a>
+                @endauth
               </div>
             </div>
           </div>
@@ -303,6 +330,7 @@
   <!-- custom js -->
   <script src="{{ asset('js/custom.js') }}"></script>
 
+  @auth
   <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -360,19 +388,75 @@
     </div>
   </div>
 
+  <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-center mb-3">
+            <h4>Pemberian Skor</h4>
+          </div>
+          <div class="d-flex justify-content-center text-center mb-3">
+            <form action="{{ route('review.store', $event->id) }}" method="POST">
+              @csrf
+              <div class="form-group">
+                <div class="star-rating display-6 mb-3">
+                  <i class="far fa-star" data-value="1"></i>
+                  <i class="far fa-star" data-value="2"></i>
+                  <i class="far fa-star" data-value="3"></i>
+                  <i class="far fa-star" data-value="4"></i>
+                  <i class="far fa-star" data-value="5"></i>
+                </div>
+              </div>
+              <input type="hidden" name="rating" id="rating">
+              <button type="submit" class="btn btn-primary" style="color: white">Beri Skor</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://app.sandbox.midtrans.com/snap/snap.js"
     data-client-key="{{ config('midtrans.client_key') }}"></script>
 
   <script type="module">
     const payModal = new bootstrap.Modal(document.getElementById("paymentModal"));
+    const reviewModal = new bootstrap.Modal(document.getElementById("reviewModal"));
     const successModal = new bootstrap.Modal(document.getElementById("successModal"));
     const qrCodeLink = document.querySelector("#successModal #qrcode");
     const qrCodeImage = document.querySelector("#successModal #qrcode img");
     const codeLabel = document.querySelector("#successModal #codelabel");
 
+    const stars = document.querySelectorAll('.star-rating i');
+    const ratingInput = document.getElementById('rating');
+
+    stars.forEach(star => {
+      star.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        ratingInput.value = value;
+
+        stars.forEach(star => {
+          if (star.getAttribute('data-value') <= value) {
+            star.classList.remove('far');
+            star.classList.add('fas');
+          } else {
+            star.classList.remove('fas');
+            star.classList.add('far');
+          }
+        });
+      });
+    });
+
     codeLabel.addEventListener("click", function () {
       navigator.clipboard.writeText(codeLabel.textContent);
       alert("Kode telah disalin");
+    });
+
+    document.getElementById("review-btn").addEventListener("click", function () {
+      reviewModal.show();
     });
 
     document.getElementById("ticket-btn").addEventListener("click", function () {
@@ -432,6 +516,7 @@
     };
 
   </script>
+  @endauth
 
 </body>
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\MyEventsController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\ReviewController;
 
 Route::redirect('/admin/login', '/login')
     ->middleware('admin');
@@ -59,6 +60,9 @@ Route::middleware(['restrictAdmin'])->group(function () {
     // User Middleware
     //
     Route::middleware(['user'])->group(function () {
+
+        Route::post('/review/{eventId}', [ReviewController::class, 'store'])
+            ->name('review.store');
 
         Route::get('/settings/profile', function () {
             return view('settings.profile');
