@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\MyEventsController;
+use App\Http\Controllers\RequestController;
 
 Route::redirect('/admin/login', '/login')
     ->middleware('admin');
@@ -75,13 +77,21 @@ Route::middleware(['restrictAdmin'])->group(function () {
 
         Route::get('/settings/transaction', [TransactionController::class, 'index'])
             ->name('settings.transaction');
-    
-        Route::get('/my-events', function () {
-            return view('my-events', [
-                'currentRoute' => Route::currentRouteName(),
-            ]);
-        })
-        ->name('my-events');
+
+        Route::get('/my-events', [MyEventsController::class, 'index'])
+            ->name('my-events');
+
+        Route::get('/view-event/{id}', [MyEventsController::class, 'viewEvent'])
+            ->name('view-event');
+
+        Route::get('/edit-event/{id}', [MyEventsController::class, 'editEvent'])
+            ->name('edit-event');
+        
+        Route::get('/create-event', [RequestController::class, 'createRequest'])
+            ->name('create-event');
+           
+        Route::post('/submit-request', [RequestController::class, 'storeRequest'])
+            ->name('submit-request');
         
         Route::get('/payment/create/{event_id}', [TransactionController::class, 'createPayment'])
             ->name('payment.create');
