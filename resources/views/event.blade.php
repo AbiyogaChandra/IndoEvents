@@ -210,7 +210,7 @@
             @auth
               <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
                 <div class="d-flex flex-start">
-                    <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="User avatar"
+                    <img class="rounded-circle shadow-1-strong me-3" src="{{ auth()->user()->profile?->profile_photo ? asset('storage/' . auth()->user()->profile->profile_photo) : asset('images/placeholder.jpg') }}" alt="User avatar"
                         width="60" height="60" />
                     <div class="w-100">
                         <h6 class="fw-bold mb-1">{{ auth()->user()->profile->display_name ?? 'Nama Anda' }}</h6>
@@ -232,7 +232,7 @@
               @foreach($event->comments as $comment)
               <div class="row mt-3">
                   <div class="d-flex flex-start mb-3">
-                      <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar" width="60" height="60" />
+                      <img class="rounded-circle shadow-1-strong me-3" src="{{ $comment->profile?->profile_photo ? asset('storage/' . $comment->profile->profile_photo) : asset('images/placeholder.jpg') }}" alt="avatar" width="60" height="60" />
                       <div>
                           <div class="d-flex align-items-start">
                               <div>
