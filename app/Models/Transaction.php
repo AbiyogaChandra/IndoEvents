@@ -16,6 +16,11 @@ class Transaction extends Model
         'price',
     ];
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
     public function ticket()
     {
         return $this->hasOne(Ticket::class);

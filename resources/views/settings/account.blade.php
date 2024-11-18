@@ -124,8 +124,7 @@
                 <div class="card">
                     <div class="card-body">
                         <nav class="nav flex-column nav-pills nav-gap-y-1">
-                            <a href="#profile" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab"
-                                class="nav-item nav-link has-icon nav-link-faded active">
+                            <a href="{{ route('settings.profile') }}" id="profile-tab" class="nav-item nav-link has-icon nav-link-faded">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-user me-2">
@@ -133,7 +132,7 @@
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>Profil
                             </a>
-                            <a href="#account" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" role="tab" class="nav-item nav-link has-icon nav-link-faded">
+                            <a href="{{ route('settings.account') }}" id="account-tab" class="nav-item nav-link has-icon nav-link-faded active">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-settings me-2">
@@ -143,14 +142,14 @@
                                     </path>
                                 </svg>Akun
                             </a>
-                            <a href="#security" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" role="tab" class="nav-item nav-link has-icon nav-link-faded">
+                            <a href="{{ route('settings.security') }}" id="security-tab" class="nav-item nav-link has-icon nav-link-faded">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-shield me-2">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                                 </svg>Keamanan
                             </a>
-                            <a href="#billing" id="billing-tab" data-bs-toggle="tab" data-bs-target="#billing" role="tab" class="nav-item nav-link has-icon nav-link-faded">
+                            <a href="{{ route('settings.transaction') }}" id="transaction-tab" class="nav-item nav-link has-icon nav-link-faded">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-credit-card me-2">
@@ -167,7 +166,7 @@
                     <div class="card-header border-bottom mb-3 d-flex d-md-none" role="navigation">
                         <ul class="nav nav-tabs card-header-tabs nav-gap-x-1" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a href="#profile" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab" class="nav-link has-icon active"><svg
+                                <a href="{{ route('settings.profile') }}" id="profile-tab" class="nav-link has-icon"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-user">
@@ -176,7 +175,7 @@
                                     </svg></a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#account" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" role="tab" class="nav-link has-icon"><svg
+                                <a href="{{ route('settings.account') }}" id="account-tab" class="nav-link has-icon active"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-settings">
@@ -187,7 +186,7 @@
                                     </svg></a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#security" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" role="tab" class="nav-link has-icon"><svg
+                                <a href="{{ route('settings.security') }}" id="security-tab" class="nav-link has-icon"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-shield">
@@ -195,7 +194,7 @@
                                     </svg></a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#billing" id="billing-tab" data-bs-toggle="tab" data-bs-target="#billing" role="tab" class="nav-link has-icon"><svg
+                                <a href="{{ route('settings.transaction') }}" id="transaction-tab" class="nav-link has-icon"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-credit-card">
@@ -205,45 +204,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="card-body tab-content">
-                        <div class="tab-pane active" id="profile" role="tabpanel">
-                            <h6>PENGATURAN PROFIL</h6>
-                            <hr>
-                            <form>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group mb-3">
-                                            Foto Profil
-                                            <div class="profile-photo-container mb-4" style="position: relative; width: 128px; height: 128px;">
-                                                <img id="selectedAvatar" src="{{ Auth::user()->profile?->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/placeholder.jpg') }}"
-                                                    class="rounded-circle mt-2" style="width: 128px; height: 128px; object-fit: cover;" alt="example placeholder" />
-
-                                                <label for="profilePhoto" class="mt-2 upload-label text-white d-flex justify-content-center align-items-center">
-                                                    <div class="text-center">
-                                                        <i class="fs-3 fa fa-file-image" aria-hidden="true"></i><br>
-                                                        Unggah Foto
-                                                    </div>
-                                                </label>
-
-                                                <input type="file" class="form-control d-none" id="profilePhoto" name="profilePhoto"
-                                                    onchange="displaySelectedImage(event, 'selectedAvatar')" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="form-group mb-3">
-                                            <label for="fullName">Nama Lengkap</label>
-                                            <input type="text" class="form-control" id="fullName"
-                                                aria-describedby="fullNameHelp" placeholder="Masukkan nama lengkapmu"
-                                                value="{{ auth()->user()->profile?->display_name }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <button type="button" class="btn btn-primary" style="color: white">Simpan Perubahan</button>
-                            </form>
-                        </div>
-                        <div class="tab-pane" id="account" role="tabpanel">
+                    <div class="card-body tab-content" id="myTabContent">
+                        <div class="tab-pane active" id="account" role="tabpanel">
                             <h6>PENGATURAN AKUN</h6>
                             <hr>
                             <form>
@@ -256,30 +218,6 @@
                                 </div>
                                 <hr>
                                 <button type="button" class="btn btn-primary" style="color: white">Simpan Perubahan</button>
-                            </form>
-                        </div>
-                        <div class="tab-pane" id="security" role="tabpanel">
-                            <h6>PENGATURAN KEAMANAN</h6>
-                            <hr>
-                            <form>
-                                <div class="form-group">
-                                    <label class="d-block">Ganti Kata Sandi</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan kata sandimu saat ini">
-                                    <input type="text" class="form-control mt-3" placeholder="Masukkan kata sandi baru">
-                                    <input type="text" class="form-control mt-3" placeholder="Ulangi kata sandi baru">
-                                </div>
-                            </form>
-                            <hr>
-                            <button type="button" class="btn btn-primary" style="color: white">Simpan Perubahan</button>
-                        </div>
-                        <div class="tab-pane" id="billing" role="tabpanel">
-                            <h6>RIWAYAT TRANSAKSI</h6>
-                            <hr>
-                            <form>
-                                <div class="form-group mb-0">
-                                    <label class="d-block">Riwayat Transaksi</label>
-                                    <div class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm">Belum ada transaksi.</div>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -303,23 +241,6 @@
     <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
     <!-- custom js -->
     <script src="{{ asset('js/custom.js') }}"></script>
-
-    <script>
-        function displaySelectedImage(event, elementId) {
-            const selectedImage = document.getElementById(elementId);
-            const fileInput = event.target;
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    selectedImage.src = e.target.result;
-                };
-
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        }
-    </script>
 </body>
 
 </html>

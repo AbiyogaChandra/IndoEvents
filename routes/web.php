@@ -58,10 +58,25 @@ Route::middleware(['restrictAdmin'])->group(function () {
     //
     Route::middleware(['user'])->group(function () {
 
-        Route::get('/settings', function () {
-            return view('settings');
+        Route::get('/settings/profile', function () {
+            return view('settings.profile');
         })
-        ->name('settings');
+        ->name('settings.profile');
+
+        Route::get('/settings/account', function () {
+            return view('settings.account');
+        })
+        ->name('settings.account');
+
+        Route::get('/settings/security', function () {
+            return view('settings.security');
+        })
+        ->name('settings.security');
+
+        Route::get('/settings/transaction', function () {
+            return view('settings.transaction');
+        })
+        ->name('settings.transaction');
     
         Route::get('/my-events', function () {
             return view('my-events', [

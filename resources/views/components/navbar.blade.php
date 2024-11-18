@@ -60,7 +60,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('settings') }}">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('settings.profile') }}">
                                         <i class="fas fa-cog me-2" style="color: #6c757d;"></i> Pengaturan
                                     </a>
                                 </li>

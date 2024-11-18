@@ -12,12 +12,13 @@ use Midtrans\Notification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
     public function index(string $eventId)
     {
-        $transactions = Transaction::where('event_id', $eventId)
+        /*$transactions = Transaction::where('event_id', $eventId)
                        ->orderBy('created_at', 'desc')
                        ->get();
 
@@ -25,7 +26,18 @@ class TransactionController extends Controller
             'success' => true,
             'message' => 'Transactions List',
             'data' => $transactions
-        ], 200);
+        ], 200);*/
+
+        $user = Auth::user();
+        $transactions = $user->transactions()->latest()->paginate(10); // Adjust pagination as needed
+
+        return view(
+            'settings', 
+            compact(
+                'user', 
+                'transactions'
+                )
+        );
     }
 
     public function createPayment(string $event_id) 
@@ -40,7 +52,7 @@ class TransactionController extends Controller
             return response()->json($validator->errors(), 400);
         }*/
 
-        $user = auth()->user();
+        $user = Auth::user();
         $event = Event::findOrFail($event_id);
         $transaction = Transaction::create([
             'user_id' => $user->id,
