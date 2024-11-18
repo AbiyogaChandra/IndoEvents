@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     protected $fillable = [
-        'email', 
+        'code', 
+        'qr_code',
         'user_id',
-        'profile_id',
+        'event_id',
     ];
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
 }

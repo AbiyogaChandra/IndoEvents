@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\Ticket;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Services\MidtransService;
+use Midtrans\Notification;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TransactionController extends Controller
 {
@@ -13,7 +19,7 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::where('event_id', $eventId)
                        ->orderBy('created_at', 'desc')
-                       ->get();;
+                       ->get();
 
         return response()->json([
             'success' => true,
@@ -22,7 +28,7 @@ class TransactionController extends Controller
         ], 200);
     }
 
-    public function createPayment(Request $request) 
+    public function createPayment(string $event_id) 
     {
         /*$validator = Validator::make($request->all(), [
             'user_id' => 'required', 
@@ -33,77 +39,67 @@ class TransactionController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }*/
+
+        $user = auth()->user();
+        $event = Event::findOrFail($event_id);
         $transaction = Transaction::create([
-            'user_id' => 0,
-            'event_id' => 1,
+            'user_id' => $user->id,
+            'event_id' => $event->id,
             'transaction_time' => now(),
-            'price' => 10000
+            'price' => $event->ticket_price
         ]);
 
         $midtrans = new MidtransService();
         $params = [
             'transaction_details' => [
                 'order_id' => uniqid(),
-                'gross_amount' => 10000, 
+                'gross_amount' => $event->ticket_price, 
             ],
             'customer_details' => [
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-                'email' => 'customer@example.com',
-                'phone' => '081234567890',
+                'first_name' => $user->profile->display_name,
+                'email' => $user->email
             ],
         ];
     
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         //return view('event', compact('snapToken', 'transaction'));
-        return response()->json(['snapToken' => $snapToken, 'transaction' => $transaction]);
-        //$transaction = $midtrans->createTransaction($params);
-
-        //return redirect($transaction->redirect_url);
-    }
-
-    public function handleNotification(Request $request)
-    {
-        $notification = new \Midtrans\Notification();
-
-        $transactionStatus = $notification->transaction_status;
-        $orderId = $notification->order_id;
-
-        if ($transactionStatus == 'capture') {
-           
-        }
-
-    }
-
-    public function store(Request $request)
-    {
-
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required', 
-            'event_id' => 'required',
-            'transaction_time' => 'required',
-            'price' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
-        $transaction = Transaction::create([
-            'user_id' => $request->user_id, 
-            'event_id' => $request->event_id,
-            'transaction_time' => $request->transaction_time,
-            'price' => $request->price
-        ]);
-        if($transaction) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Transaction Created',
-                'data' => $transaction
-            ], 201);
-        }
         return response()->json([
-            'success' => false,
-            'message' => 'Transaction Failed to Save',
-        ], 409);
+            'snapToken' => $snapToken, 
+            'transaction' => $transaction,
+        ]);
     }
+
+    public function updateTransaction(string $id)
+    {
+        $transaction = Transaction::findOrFail($id);
+
+        if ($transaction) {
+            $transaction->status = 'paid';
+            $transaction->save();
+
+            $ticketCode = Str::random(20);
+            while (Ticket::where('code', $ticketCode)->exists()) {
+                $ticketCode = Str::random(20);
+            }
+            $qr = QrCode::format('png')->size(512)->generate($ticketCode);
+            $qrCodePath = 'qrcodes/' . $ticketCode . '.png';
+            Storage::disk('public')->put($qrCodePath, $qr);
+            
+            $ticket = Ticket::create([
+                'code' => $ticketCode,
+                'qr_code' => $qrCodePath,
+                'user_id' => $transaction->user_id,
+                'event_id' => $transaction->event_id
+            ]);
+
+            return response()->json([
+                'message' => 'Transaction updated successfully',
+                'code' => $ticketCode,
+                'qrCodePath' => asset('storage/' . $qrCodePath),
+            ]);
+        }
+
+        return response()->json(['message' => 'Transaction not found'], 404);
+    }
+
 }

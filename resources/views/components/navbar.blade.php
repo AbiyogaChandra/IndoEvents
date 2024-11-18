@@ -65,7 +65,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('api/logout') }}">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                                         <i class="fas fa-sign-out-alt me-2" style="color: #dc3545;"></i> Keluar
                                     </a>
                                 </li>

@@ -39,6 +39,15 @@
     .report-comment:hover {
       color: #dd6060;
     }
+
+    #codelabel {
+      font-weight: bold;
+    }
+
+    #codelabel:hover {
+      cursor: grab;
+      text-decoration: underline;
+    }
   </style>
 
 </head>
@@ -71,9 +80,12 @@
           <h6 class="description lh-base">{{ $event->description }}</h6>
           <br>
           <br>
-          <h5 style="color: gray"><i class="fa-regular fa-calendar fa-fw"></i><span> {{ \Carbon\Carbon::parse($event->event_time)->translatedFormat('l, j F Y') }}</span></h5>
-          <h5 style="color: gray"><i class="fa-regular fa-clock fa-fw"></i><span> {{ \Carbon\Carbon::parse($event->event_time)->format('H:i') }}</span></h5>
-          <h5 style="color: gray"><i class="fa-solid fa-location-dot fa-fw"></i><span> {{ $event->location }}</span></h5>
+          <h5 style="color: gray"><i class="fa-regular fa-calendar fa-fw"></i><span>
+              {{ \Carbon\Carbon::parse($event->event_time)->translatedFormat('l, j F Y') }}</span></h5>
+          <h5 style="color: gray"><i class="fa-regular fa-clock fa-fw"></i><span>
+              {{ \Carbon\Carbon::parse($event->event_time)->format('H:i') }}</span></h5>
+          <h5 style="color: gray"><i class="fa-solid fa-location-dot fa-fw"></i><span> {{ $event->location }}</span>
+          </h5>
           <br>
           <br>
           <br>
@@ -87,8 +99,11 @@
               </div>
               <br>
               <div class="btn-box d-flex justify-content-center">
-                <button id="ticket-btn">Beli Tiket</button>
-                <span id="loadingIcon" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                @auth
+                  <button id="ticket-btn">Beli Tiket</button>
+                @else
+                  <a href="{{ route('register') }}">Beli Tiket</a>
+                @endauth
               </div>
               <br>
               <div class="d-flex justify-content-center">
@@ -166,23 +181,23 @@
           <h2 class="section_title">Komentar</h2>
           <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
             @auth
-            <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
-              <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="User avatar"
-                  width="60" height="60" />
-                <div class="w-100">
-                  <h6 class="fw-bold mb-1">DISPLAY NAME DISPLAY NAME</h6>
-                  <span style="color: gray">@USERNAME_USERNAME</span>
-                  <div class="mt-3">
-                    <textarea class="form-control" rows="3" placeholder="Tulis komentar Anda..."></textarea>
-                  </div>
-                  <div class="mt-3 d-flex justify-content-end btn-box">
-                    <a href="">Kirim</a>
-                  </div>
-                </div>
-              </div>
+        <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
+          <div class="d-flex flex-start">
+          <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="User avatar"
+            width="60" height="60" />
+          <div class="w-100">
+            <h6 class="fw-bold mb-1">DISPLAY NAME DISPLAY NAME</h6>
+            <span style="color: gray">@USERNAME_USERNAME</span>
+            <div class="mt-3">
+            <textarea class="form-control" rows="3" placeholder="Tulis komentar Anda..."></textarea>
             </div>
-            @endauth
+            <div class="mt-3 d-flex justify-content-end btn-box">
+            <a href="">Kirim</a>
+            </div>
+          </div>
+          </div>
+        </div>
+      @endauth
             <div class="row">
               <div class="d-flex flex-start">
                 <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"
@@ -289,101 +304,130 @@
   <script src="{{ asset('js/custom.js') }}"></script>
 
   <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="paymentModalLabel">Pembayaran</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentModalLabel">Pembayaran</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <h4>Harga</h4>
+            <span id="transaction-price">Rp{{ number_format($event->ticket_price, 0, ',', '.') }}</span>
           </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <h4>Harga</h4>
-              <span id="transaction-price"></span>
-            </div>
-            <div class="btn-box">
-              <button type="submit" class="submit-btn" id="pay-button">Bayar</button>
-            </div>
+          <div class="btn-box">
+            <button type="submit" class="submit-btn" id="pay-button">
+              <span id="pay-label">Bayar</span>
+              <span id="loadingIcon" class="spinner-border spinner-border-sm d-none" role="status"
+                  aria-hidden="true"></span>
+            </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
-    
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-center mb-3">
+            <h4>Pembayaran Berhasil!</h4>
+          </div>
+          <div class="d-flex justify-content-center mb-3">
+            <img id="qrcode" src="" alt="QR" height="200px">
+            <span id="qrcodeLoading" class="spinner-border spinner-border-sm d-none" role="status"
+                  aria-hidden="true"></span>
+          </div>
+          <div class="d-flex justify-content-center align-items-center mb-3">
+            <span style="color: gray">Kode Tiket: <span id="codelabel"></span></span>
+            <span id="codelabelLoading" class="spinner-border spinner-border-sm d-none" role="status"
+                  aria-hidden="true"></span>
+          </div>
+          <div class="d-flex justify-content-center text-center mb-3">
+            <h5>Simpan kode tersebut dengan baik!</h5>
+          </div>
+          <div class="d-flex justify-content-center text-center mb-3">
+            <h5 style="color: red; font-weight: bold">Jangan membagikan kode tersebut kepada orang lain, kecuali panitia acara!</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('midtrans.client_key') }}"></script>
+
   <script type="module">
-    document.getElementById("ticket-btn").addEventListener("click", function () {
-      
-      document.getElementById("ticket-btn").classList.add("d-none");
-      document.getElementById("loadingIcon").classList.remove("d-none");
+    const payModal = new bootstrap.Modal(document.getElementById("paymentModal"));
+    const successModal = new bootstrap.Modal(document.getElementById("successModal"));
+    const qrCodeImage = document.querySelector("#successModal #qrcode");
+    const codeLabel = document.querySelector("#successModal #codelabel");
 
-      fetch("{{ route('payment.create') }}")
+    codeLabel.addEventListener("click", function () {
+      navigator.clipboard.writeText(codeLabel.textContent);
+      alert("Kode telah disalin");
+    });
+
+    document.getElementById("ticket-btn").addEventListener("click", function () {
+      payModal.show();
+    });
+
+    document.getElementById('pay-button').onclick = function () {
+      document.getElementById("pay-button").disabled = true;
+      document.getElementById("pay-label").classList.add("d-none");
+      document.getElementById("loadingIcon").classList.remove("d-none");
+      fetch("{{ route('payment.create', $event->id) }}")
         .then(response => response.json())
         .then(data => {
-            document.getElementById("transaction-price").textContent = data.transaction.price;
-            new bootstrap.Modal(document.getElementById("paymentModal")).show();
-            document.getElementById('pay-button').onclick = function () {
-              snap.pay(data.snapToken, {
-                onSuccess: function (result) {
-                  myModal.hide();
-                  console.log(result);
-                },
-                onPending: function (result) {
-                  console.log(result);
-                },
-                onError: function (result) {
-                  console.log(result);
-                }
-              });
-            };
+          snap.pay(data.snapToken, {
+            onSuccess: function (result) {
+              payModal.hide();
+              document.getElementById("qrcodeLoading").classList.remove("d-none");
+              document.getElementById("codelabelLoading").classList.remove("d-none");
+              qrCodeImage.classList.add("d-none");
+              codeLabel.classList.add("d-none");
+              successModal.show();
+              console.log(result);
+
+              fetch(`{{ url('/payment/update') }}/${data.transaction.id}`)
+                .then(response => response.json())
+                .then(data => {
+                  qrCodeImage.src = data.qrCodePath;
+                  codeLabel.textContent = data.code;
+                  document.getElementById("qrcodeLoading").classList.add("d-none");
+                  document.getElementById("codelabelLoading").classList.add("d-none");
+                  qrCodeImage.classList.remove("d-none");
+                  codeLabel.classList.remove("d-none");
+                  console.log("Transaction updated successfully", data);
+                })
+                .catch(error => {
+                  console.error("Error updating transaction:", error);
+                });
+            },
+            onPending: function (result) {
+              console.log(result);
+            },
+            onClose: function (result) {
+              console.log(result);
+            },
+            onError: function (result) {
+              console.log(result);
+            }
+          });
         })
         .catch(error => console.error("Error fetching transaction data:", error))
         .finally(() => {
-            document.getElementById("ticket-btn").classList.remove("d-none");
-            document.getElementById("loadingIcon").classList.add("d-none");
+          document.getElementById("pay-button").disabled = false;
+          document.getElementById("pay-label").classList.remove("d-none");
+          document.getElementById("loadingIcon").classList.add("d-none");
         });
-    });
-  </script>
+    };
 
-  @if (isset($asdasd))
-    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="paymentModalLabel">Pembayaran</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <h4>Harga</h4>
-              {{ $transaction->price }}
-            </div>
-            <div class="btn-box">
-              <button type="submit" class="submit-btn" id="pay-button">Bayar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
-    <script type="module">
-      var myModal = new bootstrap.Modal(document.getElementById("paymentModal"), {});
-      myModal.show();
-      document.getElementById('pay-button').onclick = function () {
-        snap.pay('{{ $snapToken }}', {
-        onSuccess: function (result) {
-          myModal.hide();
-          console.log(result);
-        },
-        onPending: function (result) {
-          console.log(result);
-        },
-        onError: function (result) {
-          console.log(result);
-        }
-        });
-      };
-    </script>
-  @endif
+  </script>
 
 </body>
 

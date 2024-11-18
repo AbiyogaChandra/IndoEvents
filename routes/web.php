@@ -10,6 +10,7 @@ Route::redirect('/admin/login', '/login')
     ->middleware('admin');
 
 Route::get('/api/logout', [UserController::class, 'logout'])
+    ->name('logout')
     ->middleware('user');
 
 //
@@ -69,8 +70,11 @@ Route::middleware(['restrictAdmin'])->group(function () {
         })
         ->name('my-events');
         
-        Route::get('/payment', [TransactionController::class, 'createPayment'])
+        Route::get('/payment/create/{event_id}', [TransactionController::class, 'createPayment'])
             ->name('payment.create');
+
+        Route::get('/payment/update/{event_id}', [TransactionController::class, 'updateTransaction'])
+            ->name('payment.update');
     });
 
 });

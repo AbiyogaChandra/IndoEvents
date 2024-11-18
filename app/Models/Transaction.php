@@ -15,4 +15,9 @@ class Transaction extends Model
         'transaction_time',
         'price',
     ];
+
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class);
+    }
 }
