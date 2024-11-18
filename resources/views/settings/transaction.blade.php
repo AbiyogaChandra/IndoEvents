@@ -228,7 +228,7 @@
                                                 <th>Acara</th>
                                                 <th>Tiket</th>
                                                 <th>Pembayaran</th>
-                                                <th>Tanggal</th>
+                                                <th>Waktu</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -237,8 +237,8 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td><a href="{{ route('event.show', $transaction->event->id) }}">{{ $transaction->event->title }}</a></td>
                                                     <td class="ticket-code" data-code="{{ $transaction->ticket->code }}" data-qrcode="{{ asset('storage/' . $transaction->ticket->qr_code) }}"><a href="#">Lihat</a></td>
-                                                    <td>Rp{{ number_format($transaction->price, 0, ',', '.') }}</td>
-                                                    <td>{{ $transaction->created_at->format('d M Y, H:i') }}</td>
+                                                    <td>Rp{{ number_format($transaction->price,  0, ',', '.') }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($transaction->transaction_time)->format('d F Y, h:i') }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
