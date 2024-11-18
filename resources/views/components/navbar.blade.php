@@ -65,6 +65,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route( 'settings.transaction') }}">
+                                        <i class="fas fa-cart-shopping me-2" style="color: green;"></i> Riwayat Transaksi
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                                         <i class="fas fa-sign-out-alt me-2" style="color: #dc3545;"></i> Keluar
                                     </a>

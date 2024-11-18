@@ -57,6 +57,23 @@ class UserController extends Controller
         
     }
 
+    public function updateUser(Request $request)
+    {
+        $request->validate([
+            'username' => 'string|max:20',
+        ]);
+
+        $user = Auth::user();
+
+        if ($request->filled('username')) {
+            $user->update([
+                'username' => $request->username,
+            ]);
+        }
+
+        return back()->with('success', 'User updated successfully.');
+    }
+
     public function register(Request $request)
     {
         $messages = [

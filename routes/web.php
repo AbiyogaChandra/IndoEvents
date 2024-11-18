@@ -88,6 +88,12 @@ Route::middleware(['restrictAdmin'])->group(function () {
 
         Route::get('/payment/update/{event_id}', [TransactionController::class, 'updateTransaction'])
             ->name('payment.update');
+
+        Route::post('/user/update', [UserController::class, 'updateUser'])
+            ->name('user.update');
+
+        Route::post('/profile/update', [ProfileController::class, 'updateProfile'])
+            ->name('profile.update');
     });
 
 });

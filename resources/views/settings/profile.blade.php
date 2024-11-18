@@ -208,7 +208,8 @@
                         <div class="tab-pane active" id="profile" role="tabpanel">
                             <h6>PENGATURAN PROFIL</h6>
                             <hr>
-                            <form>
+                            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group mb-3">
@@ -232,14 +233,14 @@
                                     <div class="col-8">
                                         <div class="form-group mb-3">
                                             <label for="fullName">Nama Lengkap</label>
-                                            <input type="text" class="form-control" id="fullName"
-                                                aria-describedby="fullNameHelp" placeholder="Masukkan nama lengkapmu"
+                                            <input type="text" class="form-control" id="display_name" name="display_name"
+                                                aria-describedby="display_name_Help" placeholder="Masukkan nama lengkapmu"
                                                 value="{{ auth()->user()->profile?->display_name }}">
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <button type="button" class="btn btn-primary" style="color: white">Simpan Perubahan</button>
+                                <input type="submit" class="btn btn-primary" style="color: white" value="Simpan Perubahan">
                             </form>
                         </div>
                     </div>

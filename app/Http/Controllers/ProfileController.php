@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -23,6 +25,36 @@ class ProfileController extends Controller
         ], 200);*/
         $profiles = Profile::all(); // Retrieve all profiles
         return view('profiles', compact('profiles'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'display_name' => 'string|max:50',
+            'profilePhoto' => 'nullable|image|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        if ($request->filled('display_name')) {
+            $user->profile->update([
+                'display_name' => $request->display_name,
+            ]);
+        }
+
+        if ($request->hasFile('profilePhoto')) {
+            $path = $request->file('profilePhoto')->store('uploads/avatar', 'public');
+
+            if ($user->profile?->profile_photo) {
+                Storage::disk('public')->delete($user->profile->profile_photo);
+            }
+
+            $user->profile->update([
+                'profile_photo' => $path,
+            ]);
+        }
+
+        return back()->with('success', 'Profile updated successfully.');
     }
 
     /**

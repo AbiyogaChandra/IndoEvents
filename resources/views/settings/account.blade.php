@@ -208,16 +208,17 @@
                         <div class="tab-pane active" id="account" role="tabpanel">
                             <h6>PENGATURAN AKUN</h6>
                             <hr>
-                            <form>
+                            <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group">
                                     <label for="username">Nama Akun</label>
-                                    <input type="text" class="form-control" id="username"
+                                    <input type="text" class="form-control" id="username" name="username"
                                         aria-describedby="usernameHelp" placeholder="Masukkan nama akunmu"
                                         value="{{ auth()->user()->username }}">
                                     <small id="usernameHelp" class="form-text text-muted">Setelah mengganti nama akunmu, nama akunmu yang lama dapat digunakan oleh orang lain.</small>
                                 </div>
                                 <hr>
-                                <button type="button" class="btn btn-primary" style="color: white">Simpan Perubahan</button>
+                                <input type="submit" class="btn btn-primary" style="color: white" value="Simpan Perubahan">
                             </form>
                         </div>
                     </div>
