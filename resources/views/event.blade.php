@@ -166,7 +166,7 @@
             <br>
             <div class="row">
               <div class="col-4">
-                <img src="{{ asset('images/pfp.jpg') }}" style="border-radius: 50%" height="128px">
+                <img src="{{ $event->profile?->profile_photo ? asset('storage/' . $event->profile->profile_photo) : asset('images/placeholder.jpg') }}" style="border-radius: 50%" height="128px">
               </div>
               <div class="col-8">
                 <div class="row">
