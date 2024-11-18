@@ -17,15 +17,15 @@ class RequestController extends Controller
     {
         $validated = $request->validate([
             'type' => 'required|in:create,update',
+            'event_id' => 'nullable|exists:events,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'event_time' => 'required|date',
             'location' => 'required|string|max:255',
-            'ticket_price' => 'required|integer|min:0',
-            'event_id' => 'nullable|exists:events,id', // For updates
+            'ticket_price' => 'required|integer|min:0'
         ]);
 
-        $validated['user_id'] = Auth::id(); // Track who made the request
+        $validated['profile_id'] = Auth::user()->profile->id; 
 
         EventRequest::create($validated);
 

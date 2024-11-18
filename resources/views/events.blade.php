@@ -138,9 +138,9 @@
                 <label for="location">Lokasi:</label>
                 <select id="location" name="location" class="form-select">
                   <option value="">Semua Lokasi</option>
-                  <option value="Jakarta" {{ request('location') == 'Jakarta' ? 'selected' : '' }}>Jakarta</option>
+                  <!--option value="Jakarta" {{ request('location') == 'Jakarta' ? 'selected' : '' }}>Jakarta</option>
                   <option value="Surabaya" {{ request('location') == 'Surabaya' ? 'selected' : '' }}>Surabaya</option>
-                  <option value="Bandung" {{ request('location') == 'Bandung' ? 'selected' : '' }}>Bandung</option>
+                  <option value="Bandung" {{ request('location') == 'Bandung' ? 'selected' : '' }}>Bandung</option-->
                 </select>
               </div>
               <br>

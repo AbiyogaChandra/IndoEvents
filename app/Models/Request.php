@@ -19,4 +19,9 @@ class Request extends Model
         'ticket_price',
         'profile_id'
     ];
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class); // Direct access to the user's profile
+    }
 }
