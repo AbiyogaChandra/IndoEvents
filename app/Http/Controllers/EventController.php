@@ -142,6 +142,8 @@ class EventController extends Controller
         $registrantsCount = $event->tickets()->count();
         $reviewsCount = $event->reviews()->count();
         $averageRating = $event->reviews()->avg('score');
+
+        $event->load('comments.profile.user');
         
         return view('event', compact('event', 'registrantsCount', 'reviewsCount', 'averageRating')); 
     }

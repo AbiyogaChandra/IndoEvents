@@ -208,106 +208,52 @@
           <h2 class="section_title">Komentar</h2>
           <div class="container" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
             @auth
-        <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
-          <div class="d-flex flex-start">
-          <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="User avatar"
-            width="60" height="60" />
-          <div class="w-100">
-            <h6 class="fw-bold mb-1">DISPLAY NAME DISPLAY NAME</h6>
-            <span style="color: gray">@USERNAME_USERNAME</span>
-            <div class="mt-3">
-            <textarea class="form-control" rows="3" placeholder="Tulis komentar Anda..."></textarea>
-            </div>
-            <div class="mt-3 d-flex justify-content-end btn-box">
-            <a href="">Kirim</a>
-            </div>
-          </div>
-          </div>
-        </div>
-      @endauth
-            <div class="row">
-              <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"
-                  width="60" height="60" />
-                <div>
-                  <div class="d-flex align-items-start">
-                    <div>
-                      <h6 class="fw-bold mb-1">DIPLAY NAME DISPLAY NAME</h6>
-                      <span style="color: gray">@USERNAME_USERNAME</span>
+              <div class="container mt-4 mb-5" style="border: 2px solid gray; border-radius: 22px; padding: 20px">
+                <div class="d-flex flex-start">
+                    <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="User avatar"
+                        width="60" height="60" />
+                    <div class="w-100">
+                        <h6 class="fw-bold mb-1">{{ auth()->user()->profile->display_name ?? 'Nama Anda' }}</h6>
+                        <span style="color: gray">{{ '@' . auth()->user()->username }}</span>
+                        <div class="mt-3">
+                            <form action="{{ route('comment.store', $event->id) }}" method="POST">
+                                @csrf
+                                <textarea class="form-control" name="content" rows="3" placeholder="Tulis komentar Anda..."></textarea>
+                                <div class="mt-3 d-flex justify-content-end btn-box">
+                                    <button type="submit" class="btn btn-primary" style="color: white">Kirim</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="d-flex ms-auto">
-                      11 November 2024
-                    </div>
-                  </div>
-                  <p class="mb-0">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever
-                    since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it.
-                  </p>
-                  <br>
-                  <a href="" class="report-comment fw-bold">
-                    <i class="fa-solid fa-flag"></i> Laporkan
-                  </a>
                 </div>
               </div>
-              <hr style="margin-top: 20px" />
-            </div>
-            <div class="row">
-              <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"
-                  width="60" height="60" />
-                <div>
-                  <div class="d-flex align-items-start">
-                    <div>
-                      <h6 class="fw-bold mb-1">DIPLAY NAME DISPLAY NAME</h6>
-                      <span style="color: gray">@USERNAME_USERNAME</span>
-                    </div>
-                    <div class="d-flex ms-auto">
-                      11 November 2024
-                    </div>
+            @endauth
+            <div class="row mt-3">
+              @foreach($event->comments as $comment)
+              <div class="row mt-3">
+                  <div class="d-flex flex-start mb-3">
+                      <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar" width="60" height="60" />
+                      <div>
+                          <div class="d-flex align-items-start">
+                              <div>
+                                  <h6 class="fw-bold mb-1">{{ $comment->profile->display_name }}</h6>
+                                  <span style="color: gray">{{ '@' . $comment->profile->user->username }}</span>
+                              </div>
+                              <div class="d-flex ms-auto">
+                                  {{ $comment->created_at->diffForHumans() }}
+                              </div>
+                          </div>
+                          <p class="mb-0">
+                              {{ $comment->content }}
+                          </p>
+                          <br>
+                          <a href="" class="report-comment fw-bold">
+                              <i class="fa-solid fa-flag"></i> Laporkan
+                          </a>
+                      </div>
                   </div>
-                  <p class="mb-0">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever
-                    since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it.
-                  </p>
-                  <br>
-                  <a href="" class="report-comment fw-bold">
-                    <i class="fa-solid fa-flag"></i> Laporkan
-                  </a>
-                </div>
-              </div>
-              <hr style="margin-top: 20px" />
-            </div>
-            <div class="row">
-              <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/pfp.jpg') }}" alt="avatar"
-                  width="60" height="60" />
-                <div>
-                  <div class="d-flex align-items-start">
-                    <div>
-                      <h6 class="fw-bold mb-1">DIPLAY NAME DISPLAY NAME</h6>
-                      <span style="color: gray">@USERNAME_USERNAME</span>
-                    </div>
-                    <div class="d-flex ms-auto">
-                      11 November 2024
-                    </div>
-                  </div>
-                  <p class="mb-0">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever
-                    since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it.
-                  </p>
-                  <br>
-                  <a href="" class="report-comment fw-bold">
-                    <i class="fa-solid fa-flag"></i> Laporkan
-                  </a>
-                </div>
-              </div>
-              <hr style="margin-top: 20px" />
+                  <hr style="margin-top: 20px" />
+              @endforeach
             </div>
           </div>
         </div>

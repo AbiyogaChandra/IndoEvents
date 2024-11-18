@@ -14,4 +14,14 @@ class Comment extends Model
         'profile_id',
         'content',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
 }

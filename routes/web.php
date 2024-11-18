@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\MyEventsController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CommentController;
 
 Route::redirect('/admin/login', '/login')
     ->middleware('admin');
@@ -63,6 +64,9 @@ Route::middleware(['restrictAdmin'])->group(function () {
 
         Route::post('/review/{eventId}', [ReviewController::class, 'store'])
             ->name('review.store');
+
+        Route::post('/comment/{event}', [CommentController::class, 'store'])
+            ->name('comment.store');
 
         Route::get('/settings/profile', function () {
             return view('settings.profile');
