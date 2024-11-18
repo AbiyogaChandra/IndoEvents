@@ -142,6 +142,19 @@ a:focus {
   color: initial;
 }
 
+.custom-link-colors {
+  a {
+    color: $primary1;
+    text-decoration: none;
+  }
+  
+  a:hover,
+  a:focus {
+    color: color.scale($primary1, $lightness: -10%);
+    text-decoration: underline;
+  }  
+}
+
 .btn,
 .btn:focus {
   outline: none !important;

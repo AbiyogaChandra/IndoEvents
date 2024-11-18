@@ -11,6 +11,7 @@ class Ticket extends Model
         'qr_code',
         'user_id',
         'event_id',
+        'transaction_id'
     ];
 
     public function transaction()

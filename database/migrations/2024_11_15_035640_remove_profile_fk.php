@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //$table->dropForeign('profile_id');
-            //$table->dropColumn("profile_id");
+            $table->dropForeign('profile_id');
+            $table->dropColumn("profile_id");
         });
         Schema::table('profiles', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users');
-            //$table->integer('id')->unsigned()->change();
+            $table->integer('id')->unsigned()->change();
         });
     }
 

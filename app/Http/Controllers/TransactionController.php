@@ -16,23 +16,13 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
-    public function index(string $eventId)
+    public function index()
     {
-        /*$transactions = Transaction::where('event_id', $eventId)
-                       ->orderBy('created_at', 'desc')
-                       ->get();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Transactions List',
-            'data' => $transactions
-        ], 200);*/
-
         $user = Auth::user();
         $transactions = $user->transactions()->latest()->paginate(10); // Adjust pagination as needed
 
         return view(
-            'settings', 
+            'settings.transaction', 
             compact(
                 'user', 
                 'transactions'
@@ -42,16 +32,6 @@ class TransactionController extends Controller
 
     public function createPayment(string $event_id) 
     {
-        /*$validator = Validator::make($request->all(), [
-            'user_id' => 'required', 
-            'event_id' => 'required',
-            'transaction_time' => 'required',
-            'price' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }*/
-
         $user = Auth::user();
         $event = Event::findOrFail($event_id);
         $transaction = Transaction::create([
@@ -74,7 +54,6 @@ class TransactionController extends Controller
         ];
     
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-        //return view('event', compact('snapToken', 'transaction'));
         return response()->json([
             'snapToken' => $snapToken, 
             'transaction' => $transaction,
@@ -101,7 +80,8 @@ class TransactionController extends Controller
                 'code' => $ticketCode,
                 'qr_code' => $qrCodePath,
                 'user_id' => $transaction->user_id,
-                'event_id' => $transaction->event_id
+                'event_id' => $transaction->event_id,
+                'transaction_id' => $transaction->id
             ]);
 
             return response()->json([

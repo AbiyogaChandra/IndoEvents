@@ -73,10 +73,8 @@ Route::middleware(['restrictAdmin'])->group(function () {
         })
         ->name('settings.security');
 
-        Route::get('/settings/transaction', function () {
-            return view('settings.transaction');
-        })
-        ->name('settings.transaction');
+        Route::get('/settings/transaction', [TransactionController::class, 'index'])
+            ->name('settings.transaction');
     
         Route::get('/my-events', function () {
             return view('my-events', [

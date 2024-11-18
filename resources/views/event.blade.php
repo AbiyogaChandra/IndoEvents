@@ -338,7 +338,9 @@
             <h4>Pembayaran Berhasil!</h4>
           </div>
           <div class="d-flex justify-content-center mb-3">
-            <img id="qrcode" src="" alt="QR" height="200px">
+            <a id="qrcode" href="" download>
+              <img src="" alt="QR" height="200px">
+            </a>
             <span id="qrcodeLoading" class="spinner-border spinner-border-sm d-none" role="status"
                   aria-hidden="true"></span>
           </div>
@@ -364,7 +366,8 @@
   <script type="module">
     const payModal = new bootstrap.Modal(document.getElementById("paymentModal"));
     const successModal = new bootstrap.Modal(document.getElementById("successModal"));
-    const qrCodeImage = document.querySelector("#successModal #qrcode");
+    const qrCodeLink = document.querySelector("#successModal #qrcode");
+    const qrCodeImage = document.querySelector("#successModal #qrcode img");
     const codeLabel = document.querySelector("#successModal #codelabel");
 
     codeLabel.addEventListener("click", function () {
@@ -396,6 +399,7 @@
               fetch(`{{ url('/payment/update') }}/${data.transaction.id}`)
                 .then(response => response.json())
                 .then(data => {
+                  qrCodeLink.href = data.qrCodePath;
                   qrCodeImage.src = data.qrCodePath;
                   codeLabel.textContent = data.code;
                   document.getElementById("qrcodeLoading").classList.add("d-none");

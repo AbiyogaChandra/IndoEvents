@@ -111,6 +111,15 @@
     .profile-photo-container:hover .upload-label {
         opacity: 1;
     }
+
+    #codelabel {
+      font-weight: bold;
+    }
+
+    #codelabel:hover {
+      cursor: grab;
+      text-decoration: underline;
+    }
     </style>
 
 </head>
@@ -208,12 +217,37 @@
                         <div class="tab-pane active" id="transaction" role="tabpanel">
                             <h6>RIWAYAT TRANSAKSI</h6>
                             <hr>
-                            <form>
-                                <div class="form-group mb-0">
-                                    <label class="d-block">Riwayat Transaksi</label>
-                                    <div class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm">Belum ada transaksi.</div>
+                            @if($transactions->isEmpty())
+                                <p>Tidak ada transaksi yang ditemukan.</p>
+                            @else
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Acara</th>
+                                                <th>Tiket</th>
+                                                <th>Pembayaran</th>
+                                                <th>Tanggal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($transactions as $transaction)
+                                                <tr class="custom-link-colors">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td><a href="{{ route('event.show', $transaction->event->id) }}">{{ $transaction->event->title }}</a></td>
+                                                    <td class="ticket-code" data-code="{{ $transaction->ticket->code }}" data-qrcode="{{ asset('storage/' . $transaction->ticket->qr_code) }}"><a href="#">Lihat</a></td>
+                                                    <td>Rp{{ number_format($transaction->price, 0, ',', '.') }}</td>
+                                                    <td>{{ $transaction->created_at->format('d M Y, H:i') }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </form>
+                                <div>
+                                    {{ $transactions->links('pagination::bootstrap-5') }} <!-- Laravel pagination -->
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -236,6 +270,65 @@
     <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
     <!-- custom js -->
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="d-flex justify-content-center mb-3">
+                <h4>Rincian Tiket</h4>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+                <a id="qrcode" href="" download>
+                <img src="" alt="QR" height="200px">
+                </a>
+                <span id="qrcodeLoading" class="spinner-border spinner-border-sm d-none" role="status"
+                    aria-hidden="true"></span>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mb-3">
+                <span style="color: gray">Kode Tiket: <span id="codelabel"></span></span>
+                <span id="codelabelLoading" class="spinner-border spinner-border-sm d-none" role="status"
+                    aria-hidden="true"></span>
+            </div>
+            <div class="d-flex justify-content-center text-center mb-3">
+                <h5>Simpan kode tersebut dengan baik!</h5>
+            </div>
+            <div class="d-flex justify-content-center text-center mb-3">
+                <h5 style="color: red; font-weight: bold">Jangan membagikan kode tersebut kepada orang lain, kecuali panitia acara!</h5>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script type="module">
+        const ticketButtons = document.querySelectorAll(".ticket-code");
+        const modal = new bootstrap.Modal(document.getElementById("ticketModal"));
+        const qrCodeLink = document.querySelector("#ticketModal #qrcode");
+        const qrCodeImage = document.querySelector("#ticketModal #qrcode img");
+        const codeLabel = document.getElementById("codelabel");
+        
+        codeLabel.addEventListener("click", function () {
+            navigator.clipboard.writeText(codeLabel.textContent);
+            alert("Kode telah disalin");
+        });
+
+        ticketButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const qrCode = this.dataset.qrcode;
+                const ticketCode = this.dataset.code;
+
+                qrCodeLink.href = qrCode;
+                qrCodeImage.src = qrCode;
+                codeLabel.textContent = ticketCode;
+
+                modal.show();
+            });
+        });
+    </script>
 </body>
 
 </html>
